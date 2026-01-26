@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barrie's 40th</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css">
-    <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
-</head>
+    <link rel="stylesheet" href="style.css?v=8">
+    </head>
 <body>
     <div id="login-screen">
         <div class="login-container">
-            <img src="images/hero.jpeg" alt="Uncle B's Big Bash" class="login-hero">
+            <img src="images/hero.png" alt="Uncle B's Big Bash" class="login-hero">
             <p>Please enter the password to continue</p>
             <form id="password-form">
                 <input type="password" id="password-input" placeholder="Enter password" required>
@@ -23,9 +22,19 @@
 
     <div id="content" class="hidden">
         <header>
-            <img src="images/header-logo.jpeg" alt="Uncle B's Big Bash" class="header-logo">
+            <img src="images/header-logo.png" alt="Uncle B's Big Bash" class="header-logo">
             <p class="header-subtitle">February 13-15, 2026</p>
         </header>
+
+        <!-- WhatsApp Join Banner -->
+        <div class="whatsapp-banner" id="whatsapp-banner">
+            <button class="whatsapp-banner-btn" id="whatsapp-banner-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Join the WhatsApp Group!
+            </button>
+        </div>
 
         <!-- Countdown Clock -->
         <div class="countdown-section">
@@ -65,23 +74,23 @@
             <aside class="sidebar">
                 <nav class="sidebar-nav">
                     <a href="#timeline" class="sidebar-link active">
-                        <span class="sidebar-icon">📅</span>
+                        <span class="sidebar-icon">🕐</span>
                         Timeline of Events
                     </a>
                     <a href="#faqs" class="sidebar-link">
-                        <span class="sidebar-icon">❓</span>
+                        <span class="sidebar-icon">🦩</span>
                         FAQs
                     </a>
                     <a href="#recommendations" class="sidebar-link">
-                        <span class="sidebar-icon">⭐</span>
+                        <span class="sidebar-icon">🌴</span>
                         Recommendations
                     </a>
                     <a href="#contact" class="sidebar-link">
-                        <span class="sidebar-icon">💬</span>
+                        <span class="sidebar-icon">🗣️</span>
                         Talk to a Person
                     </a>
                     <a href="#inspo" class="sidebar-link">
-                        <span class="sidebar-icon">📌</span>
+                        <span class="sidebar-icon">✨</span>
                         Inspo
                     </a>
                 </nav>
@@ -91,7 +100,11 @@
                     <div class="welcome-intro">
                         <h2>Welcome to Miami!!!</h2>
                         <p>Thank you for coming down to Miami for my big 40th birthday! I am so excited to share my favorite place on earth with you.</p>
-                        <p>Please use this site all weekend for reference, but we'll also all be in the WhatsApp group which is the fastest place to figure out where everyone is at a given time.</p>
+                        <p>Please use this site all weekend for reference, but we'll also all be in the WhatsApp community - there is a chat called 'everyone join here!' ya can't miss it.</p>
+                        <div class="welcome-warning">
+                            <span class="warning-icon">⚠️</span>
+                            <p>Please note the weekend of my bday is also the MIAMI INTERNATIONAL BOAT SHOW. Please check out the info <a href="https://myemail.constantcontact.com/Discover-Boating-Miami-International-Boat-Show.html?soid=1011085968389&aid=ItodDtdN0Uw" target="_blank">here</a> re: traffic in case you are considering moving on and off south beach - traffic can be a nightmare but there is a water taxi.</p>
+                        </div>
                     </div>
 
                     <h2>Timeline of Events</h2>
@@ -240,50 +253,156 @@
 
                     <div class="faq-item">
                         <h4 class="faq-question">What's the dress code?</h4>
-                        <p class="faq-answer">UPSTAGE ME. The dress code is "Nowhere to wear it..." - it means wear anything in your closet you've wanted to wear but haven't had the opportunity to. Just be yourself/be comfortable.</p>
+                        <p class="faq-answer">The dress code is "Nowhere to wear it..." it means wear anything in your closet you've wanted to wear but haven't had the opportunity to. You can also just go comfortable (my MO). But also please feel free to upstage me. Go big.</p>
                     </div>
 
                     <div class="faq-item">
                         <h4 class="faq-question">How do I get around?</h4>
-                        <p class="faq-answer">WALK! You can do Citibike as well, and Ubers here are really inexpensive compared to NY+LA.</p>
+                        <p class="faq-answer">WALK! You can do Citibike as well. The Citibike app here is not the same as NYC (stupid) but the stations all have consoles with touch screens where you can get a bike. I love biking.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">I want to shop</h4>
+                        <p class="faq-answer">Designer stuff is concentrated in the Design District on the mainland but there are 100 slutty little boutiques on South Beach where you can get bathing suits, dresses, hats that say IM IN MIAMI BITCH, etc. I honestly love them and recommend Grooveman Music at 1121 Washington Ave.</p>
                     </div>
 
                     <div class="faq-item">
                         <h4 class="faq-question">Is Pura Vida good?</h4>
-                        <p class="faq-answer">Not really. It's healthy though so if you made a lot of bad decisions the night before and feel like shit it's a decent reset.</p>
+                        <p class="faq-answer">Not really. It's not even that healthy.</p>
                     </div>
 
                     <div class="faq-item">
                         <h4 class="faq-question">I don't know what to wear!</h4>
-                        <p class="faq-answer">Join the WhatsApp group called "is this OK to wear?!" in the main party community.</p>
+                        <p class="faq-answer">Join the WhatsApp group called "is this OK to wear?!" in the main party community and send your pics there for analysis by real life fashion experts.</p>
                     </div>
 
                     <div class="faq-item">
                         <h4 class="faq-question">Help I am so hungover</h4>
-                        <p class="faq-answer">Go get a big smoothie at Sunlife on Alton. If you need a vegetable, this is also the move.</p>
+                        <p class="faq-answer">Go get a big smoothie at Sunlife on Alton (not actually healthy but very satisfying), or go to the hot bar at Meridian Market on 6th to get a plate of oxtail and rice.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">I need a vegetable</h4>
+                        <p class="faq-answer">There is a Whole Foods on Alton, and 'Under the Mango Tree' on 5th is cute and healthy.</p>
                     </div>
 
                     <div class="faq-item">
                         <h4 class="faq-question">What are the big banger food spots on South Beach?</h4>
-                        <p class="faq-answer">Joe's Stone Crab (crab cakes), Sandwicherie (SoBe Club, scooped, extra sauce), Puerto Sagua (oxtail).</p>
+                        <p class="faq-answer">Joe's Stone Crab (crab cakes), Sandwicherie (SoBe Club, scooped, extra sauce), Puerto Sagua (oxtail), The Joyce (the burger), La Leggenda (mistica).</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">Where can I get a good coffee?</h4>
+                        <p class="faq-answer">Las Olas has an amazing cortadito and the best chicken empanada you have ever had in your life. Caffe Umbria on West Ave is decent. Also check out Maman (one in Sunset Harbor and one south of fifth). Otherwise unfortunately South Beach is not amazing for coffee. You know me I go to Starbucks.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">What should I bring to Miami in February?</h4>
+                        <p class="faq-answer">Weather is 70s/80s. Temp doesn't usually drop at night. Basically perfect. Check the weather though bc sometimes there are cold snaps.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">I want to go to the beach</h4>
+                        <p class="faq-answer">Anywhere up and down South Beach is nice! Don't pay for the $100 chaise/cabanas. Haulover is nude if you want to take a little Uber ride up north (not that far) to let it all hang out.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">I am injured/sick</h4>
+                        <p class="faq-answer">Baptist Urgent Care is close by and very nice - 709 Alton Rd. I am also a certified doctor if you need medical help.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">Where should I get breakfast?</h4>
+                        <p class="faq-answer">Go to Sunset Harbour and go to True Loaf or Maman they are both banging. True Loaf has no seating but the PB&J goes crazy. There is also a Maman south of 5th St which is gorgeous and chic. News Cafe is where Versace used to go eat breakfast every morning! It's mid but historic.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">Where can I get cigs?</h4>
+                        <p class="faq-answer">I'll have 10 packs of Camel Crush stored in all my utility bags and sportswear but if you need em or a vape (grow up!) you can buy them at the spots on Washington + 9th, or all along 11th St between Washington and Ocean Drive. It's Florida these places are literally everywhere.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">I need (insert literally anything)</h4>
+                        <p class="faq-answer">The Walgreens and CVS' along 5th St and on Washington are some of the world's finest - you can get everything from snorkeling gear to hard-to-find UTI meds at most of them. HIGHLY RECOMMEND.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">Is the Versace Mansion good food?</h4>
+                        <p class="faq-answer">No. Only dessert.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">Should I rent a car?</h4>
+                        <p class="faq-answer">No you don't need it unless you're staying for longer or want to leave my birthday premises. Parking on South Beach absolutely sucks.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h4 class="faq-question">How do I get from the airport?</h4>
+                        <p class="faq-answer">Take an Uber it's like 15 minutes.</p>
                     </div>
                 </section>
                 <section id="recommendations" class="content-section">
                     <h2>Recommendations</h2>
-                    <p>Local recommendations coming soon...</p>
+                    <div class="map-link-card">
+                        <a href="https://maps.app.goo.gl/5v8bu5wVJ6Ecj7oe7" target="_blank" class="map-link">
+                            <span class="map-icon">🗺️</span>
+                            <span class="map-text">Barrie's Firehose Master Miami Google Map with Everything On It</span>
+                            <span class="map-arrow">→</span>
+                        </a>
+                    </div>
+                    <div class="map-link-card">
+                        <a href="https://docs.google.com/document/d/1TEWk9c40jtw_zWZIYaRdXeueQenWBpiumgaXO7DhgeM/edit?tab=t.0#heading=h.n6v7hhdbjsxl" target="_blank" class="map-link">
+                            <span class="map-icon">📝</span>
+                            <span class="map-text">Sarah's Chic and Curated Google Doc with Places to Eat and Drink</span>
+                            <span class="map-arrow">→</span>
+                        </a>
+                    </div>
                 </section>
                 <section id="contact" class="content-section">
                     <h2>Talk to a Person</h2>
-                    <p>Contact information coming soon...</p>
+                    <div class="contact-qr-container">
+                        <img src="images/whatsapp-qr.png" alt="WhatsApp QR Code" class="contact-qr">
+                        <p class="contact-qr-caption">Scan to join the WhatsApp group</p>
+                    </div>
                 </section>
                 <section id="inspo" class="content-section">
                     <h2>Inspo</h2>
-                    <p class="inspo-intro">Some visual inspiration for the weekend vibes...</p>
-                    <div class="pinterest-board-container">
-                        <a data-pin-do="embedBoard" data-pin-board-width="900" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/barriesegal/south-beach-barries-40th/"></a>
+                    <div class="map-link-card">
+                        <a href="https://www.pinterest.com/barriesegal/south-beach-barries-40th/" target="_blank" class="map-link wacky">
+                            <span class="map-icon">📌</span>
+                            <span class="map-text">Uncle B's Big Pinterest Board of Inspiration</span>
+                            <span class="map-arrow">→</span>
+                        </a>
                     </div>
                 </section>
             </main>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float" id="whatsapp-float">
+        <svg class="whatsapp-spin-text" viewBox="0 0 100 100">
+            <defs>
+                <path id="circle-path" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
+            </defs>
+            <text>
+                <textPath href="#circle-path">ENTER THE VOID • ENTER THE VOID • </textPath>
+            </text>
+        </svg>
+        <button class="whatsapp-btn" id="whatsapp-btn" aria-label="Join WhatsApp Group">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- WhatsApp QR Modal -->
+    <div class="whatsapp-modal" id="whatsapp-modal">
+        <div class="whatsapp-modal-content">
+            <button class="whatsapp-modal-close" id="whatsapp-modal-close">&times;</button>
+            <h3>Join the WhatsApp Group!</h3>
+            <img src="images/whatsapp-qr.png" alt="WhatsApp QR Code" class="whatsapp-qr">
+            <p>Scan with your phone to join</p>
         </div>
     </div>
 
@@ -348,6 +467,30 @@
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // WhatsApp Modal
+        const whatsappBtn = document.getElementById('whatsapp-btn');
+        const whatsappBannerBtn = document.getElementById('whatsapp-banner-btn');
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        const whatsappModalClose = document.getElementById('whatsapp-modal-close');
+
+        whatsappBtn.addEventListener('click', () => {
+            whatsappModal.classList.add('active');
+        });
+
+        whatsappBannerBtn.addEventListener('click', () => {
+            whatsappModal.classList.add('active');
+        });
+
+        whatsappModalClose.addEventListener('click', () => {
+            whatsappModal.classList.remove('active');
+        });
+
+        whatsappModal.addEventListener('click', (e) => {
+            if (e.target === whatsappModal) {
+                whatsappModal.classList.remove('active');
+            }
+        });
 
     </script>
 </body>

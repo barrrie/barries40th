@@ -467,8 +467,33 @@ main {
     margin-bottom: var(--spacing-half);
 }
 
-.welcome-intro p:last-child {
+.welcome-intro p:last-of-type {
     margin-bottom: 0;
+}
+
+.welcome-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: var(--spacing-1);
+    padding: var(--spacing-1);
+    background: var(--white);
+    border: 2px solid var(--text-primary);
+}
+
+.welcome-warning .warning-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.welcome-warning p {
+    margin-bottom: 0;
+    font-size: var(--font-size-secondary);
+    color: var(--text-primary);
+}
+
+.welcome-warning a {
+    font-weight: 700;
 }
 
 /* ========== TIMELINE ========== */
@@ -992,4 +1017,355 @@ a:hover {
         transform: translateY(110vh) rotate(360deg);
         opacity: 0;
     }
+}
+
+/* ========== FLOATING WHATSAPP BUTTON ========== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9998;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-spin-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 10s linear infinite;
+    pointer-events: none;
+}
+
+.whatsapp-spin-text text {
+    font-family: var(--font-display);
+    font-size: 9px;
+    font-weight: 700;
+    fill: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.whatsapp-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #25D366;
+    border: 3px solid var(--text-primary);
+    box-shadow: 4px 4px 0 var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.15s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.whatsapp-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--text-primary);
+}
+
+.whatsapp-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--text-primary);
+}
+
+/* ========== WHATSAPP MODAL ========== */
+.whatsapp-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+}
+
+.whatsapp-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.whatsapp-modal-content {
+    background: var(--white);
+    border: 4px solid var(--text-primary);
+    box-shadow: 8px 8px 0 var(--text-primary);
+    padding: var(--spacing-3);
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+    position: relative;
+}
+
+.whatsapp-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.whatsapp-modal-close:hover {
+    color: var(--red);
+}
+
+.whatsapp-modal-content h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-2);
+    color: var(--text-primary);
+}
+
+.whatsapp-qr {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    border: 2px solid var(--text-primary);
+    margin-bottom: var(--spacing-1);
+}
+
+.whatsapp-modal-content p {
+    font-size: var(--font-size-secondary);
+    color: var(--text-tertiary);
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 12px;
+        right: 12px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .whatsapp-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .whatsapp-spin-text text {
+        font-size: 8px;
+    }
+}
+
+/* ========== WHATSAPP TOP BANNER ========== */
+.whatsapp-banner {
+    background: #25D366;
+    border-bottom: 3px solid var(--text-primary);
+    padding: 12px var(--spacing-1);
+    text-align: center;
+}
+
+.whatsapp-banner-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+    padding: 10px 20px;
+    font-size: var(--font-size-default);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--text-primary);
+    transition: all 0.1s ease;
+}
+
+.whatsapp-banner-btn:hover {
+    background: var(--yellow);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--text-primary);
+}
+
+.whatsapp-banner-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--text-primary);
+}
+
+.whatsapp-banner-btn svg {
+    color: #25D366;
+}
+
+/* ========== STICKY HEADER & SIDEBAR ========== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: sticky;
+        top: 0;
+        height: auto;
+        z-index: 99;
+        background: var(--white);
+    }
+}
+
+/* ========== MAP LINK CARD ========== */
+.map-link-card {
+    margin-bottom: var(--spacing-2);
+}
+
+.map-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    background: var(--white);
+    border: 3px solid var(--text-primary);
+    padding: var(--spacing-1) var(--spacing-2);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all 0.1s ease;
+    box-shadow: 4px 4px 0 var(--text-primary);
+}
+
+.map-link:hover {
+    background: var(--yellow);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--text-primary);
+}
+
+.map-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--text-primary);
+}
+
+/* Wacky inspo link */
+.map-link.wacky {
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+    background-size: 300% 300%;
+    animation: rainbow-shift 3s ease infinite;
+    border: 4px solid var(--text-primary);
+    box-shadow: 6px 6px 0 var(--text-primary);
+}
+
+.map-link.wacky:hover {
+    transform: translate(-3px, -3px) rotate(-1deg);
+    box-shadow: 9px 9px 0 var(--text-primary);
+    animation: rainbow-shift 1s ease infinite, wiggle 0.3s ease infinite;
+}
+
+.map-link.wacky .map-text {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.map-link.wacky .map-icon {
+    animation: bounce-icon 1s ease infinite;
+}
+
+@keyframes rainbow-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: translate(-3px, -3px) rotate(-1deg); }
+    50% { transform: translate(-3px, -3px) rotate(1deg); }
+}
+
+@keyframes bounce-icon {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.map-icon {
+    font-size: 28px;
+}
+
+.map-text {
+    flex: 1;
+    font-size: var(--font-size-default);
+}
+
+.map-arrow {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .map-link {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-half);
+        padding: var(--spacing-1);
+    }
+
+    .map-arrow {
+        display: none;
+    }
+}
+
+/* ========== CONTACT / TALK TO A PERSON ========== */
+.contact-intro {
+    font-size: var(--font-size-default);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+    line-height: 1.6;
+}
+
+.contact-qr-container {
+    display: inline-block;
+    background: var(--white);
+    border: 3px solid var(--text-primary);
+    padding: var(--spacing-2);
+    box-shadow: 4px 4px 0 var(--text-primary);
+    text-align: center;
+}
+
+.contact-qr {
+    width: 200px;
+    height: auto;
+    border: 2px solid var(--text-primary);
+    margin-bottom: var(--spacing-1);
+}
+
+.contact-qr-caption {
+    font-size: var(--font-size-secondary);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }

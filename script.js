@@ -1,6 +1,6 @@
 // Password Protection Script
 // IMPORTANT: Change this password before deploying!
-const SITE_PASSWORD = 'barrie40';
+const SITE_PASSWORD = 'bigbash';
 
 const loginScreen = document.getElementById('login-screen');
 const content = document.getElementById('content');
