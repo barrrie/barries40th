@@ -21,32 +21,6 @@
     </div>
 
     <div id="content" class="hidden">
-        <!-- WELCOME PAGE -->
-        <div id="welcome-page" class="welcome-page">
-            <div class="welcome-content">
-                <h1 class="welcome-title">Welcome to Miami!!!</h1>
-                <p class="welcome-message">
-                    Thank you for coming down to Miami for my big 40th birthday! I am so excited to share my favorite place on earth with you.
-                </p>
-                <p class="welcome-message">
-                    Please use this site all weekend for reference, but we'll also all be in the WhatsApp group which is the fastest place to figure out where everyone is at a given time.
-                </p>
-                <button id="enter-site-btn" class="enter-btn">Let's Go!</button>
-            </div>
-
-            <!-- Floating heads - replace emoji with your selfie images later -->
-            <div class="floating-head head-1">🎂</div>
-            <div class="floating-head head-2">🌴</div>
-            <div class="floating-head head-3">🎉</div>
-            <div class="floating-head head-4">🌊</div>
-            <div class="floating-head head-5">🦩</div>
-            <div class="floating-head head-6">☀️</div>
-            <div class="floating-head head-7">🍹</div>
-            <div class="floating-head head-8">💃</div>
-        </div>
-
-        <!-- MAIN SITE (hidden until they click Let's Go) -->
-        <div id="main-site" class="hidden">
         <header>
             <img src="images/header-logo.jpeg" alt="Uncle B's Big Bash" class="header-logo">
             <p class="header-subtitle">Miami Beach, Baby!</p>
@@ -66,18 +40,24 @@
                         <span class="sidebar-icon">⭐</span>
                         Recommendations
                     </a>
-                    <a href="#inspo" class="sidebar-link">
-                        <span class="sidebar-icon">📌</span>
-                        Inspo
-                    </a>
                     <a href="#contact" class="sidebar-link">
                         <span class="sidebar-icon">💬</span>
                         Talk to a Person
+                    </a>
+                    <a href="#inspo" class="sidebar-link">
+                        <span class="sidebar-icon">📌</span>
+                        Inspo
                     </a>
                 </nav>
             </aside>
             <main>
                 <section id="timeline" class="content-section">
+                    <div class="welcome-intro">
+                        <h2>Welcome to Miami!!!</h2>
+                        <p>Thank you for coming down to Miami for my big 40th birthday! I am so excited to share my favorite place on earth with you.</p>
+                        <p>Please use this site all weekend for reference, but we'll also all be in the WhatsApp group which is the fastest place to figure out where everyone is at a given time.</p>
+                    </div>
+
                     <h2>Timeline of Events</h2>
 
                     <!-- FRIDAY -->
@@ -230,6 +210,10 @@
                     <h2>Recommendations</h2>
                     <p>Local recommendations coming soon...</p>
                 </section>
+                <section id="contact" class="content-section">
+                    <h2>Talk to a Person</h2>
+                    <p>Contact information coming soon...</p>
+                </section>
                 <section id="inspo" class="content-section">
                     <h2>Inspo</h2>
                     <p class="inspo-intro">Some visual inspiration for the weekend vibes...</p>
@@ -237,13 +221,8 @@
                         <a data-pin-do="embedBoard" data-pin-board-width="900" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/barriesegal/south-beach-barries-40th/"></a>
                     </div>
                 </section>
-                <section id="contact" class="content-section">
-                    <h2>Talk to a Person</h2>
-                    <p>Contact information coming soon...</p>
-                </section>
             </main>
         </div>
-        </div><!-- end main-site -->
     </div>
 
     <script src="script.js"></script>
@@ -270,11 +249,6 @@
             setTimeout(createPalmTree, i * 200);
         }
 
-        // Welcome page navigation
-        document.getElementById('enter-site-btn').addEventListener('click', function() {
-            document.getElementById('welcome-page').classList.add('hidden');
-            document.getElementById('main-site').classList.remove('hidden');
-        });
     </script>
 </body>
 </html>
