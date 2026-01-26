@@ -925,6 +925,37 @@ a:hover {
     background: var(--yellow);
 }
 
+/* ========== FAQs ========== */
+.faq-item {
+    background: var(--white);
+    border: 2px solid var(--text-primary);
+    padding: var(--spacing-1);
+    margin-bottom: var(--spacing-1);
+    transition: all 0.1s ease;
+}
+
+.faq-item:hover {
+    background: var(--gray);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--text-primary);
+}
+
+.faq-question {
+    font-family: var(--font-display);
+    font-size: var(--font-size-header);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-half);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.faq-answer {
+    font-size: var(--font-size-default);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
 /* ========== INSPO / PINTEREST ========== */
 .inspo-intro {
     color: var(--text-secondary);
