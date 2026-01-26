@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barrie's 40th</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=9">
     </head>
 <body>
     <div id="login-screen">
@@ -365,10 +365,10 @@
                 </section>
                 <section id="contact" class="content-section">
                     <h2>Talk to a Person</h2>
-                    <div class="contact-qr-container">
+                    <a href="https://chat.whatsapp.com/HFvVTQ4HMnu1m17ZtPNJpe" class="contact-qr-container contact-qr-link" id="contact-qr-link">
                         <img src="images/whatsapp-qr.png" alt="WhatsApp QR Code" class="contact-qr">
                         <p class="contact-qr-caption">Scan to join the WhatsApp group</p>
-                    </div>
+                    </a>
                 </section>
                 <section id="inspo" class="content-section">
                     <h2>Inspo</h2>
@@ -478,14 +478,23 @@
         const whatsappBannerBtn = document.getElementById('whatsapp-banner-btn');
         const whatsappModal = document.getElementById('whatsapp-modal');
         const whatsappModalClose = document.getElementById('whatsapp-modal-close');
+        const whatsappDirectLink = 'https://chat.whatsapp.com/HFvVTQ4HMnu1m17ZtPNJpe';
 
-        whatsappBtn.addEventListener('click', () => {
-            whatsappModal.classList.add('active');
-        });
+        // Detect mobile device
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+        }
 
-        whatsappBannerBtn.addEventListener('click', () => {
-            whatsappModal.classList.add('active');
-        });
+        function handleWhatsAppClick() {
+            if (isMobile()) {
+                window.location.href = whatsappDirectLink;
+            } else {
+                whatsappModal.classList.add('active');
+            }
+        }
+
+        whatsappBtn.addEventListener('click', handleWhatsAppClick);
+        whatsappBannerBtn.addEventListener('click', handleWhatsAppClick);
 
         whatsappModalClose.addEventListener('click', () => {
             whatsappModal.classList.remove('active');
@@ -494,6 +503,14 @@
         whatsappModal.addEventListener('click', (e) => {
             if (e.target === whatsappModal) {
                 whatsappModal.classList.remove('active');
+            }
+        });
+
+        // Contact QR link - only works on mobile
+        const contactQrLink = document.getElementById('contact-qr-link');
+        contactQrLink.addEventListener('click', (e) => {
+            if (!isMobile()) {
+                e.preventDefault();
             }
         });
 

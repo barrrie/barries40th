@@ -1354,6 +1354,14 @@ header {
     padding: var(--spacing-2);
     box-shadow: 4px 4px 0 var(--text-primary);
     text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.1s ease;
+}
+
+.contact-qr-link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--text-primary);
 }
 
 .contact-qr {
