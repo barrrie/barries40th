@@ -761,6 +761,17 @@ a:hover {
     background: var(--yellow);
 }
 
+/* ========== INSPO / PINTEREST ========== */
+.inspo-intro {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+}
+
+.pinterest-board-container {
+    width: 100%;
+    overflow: hidden;
+}
+
 /* ========== FALLING PALM TREES ========== */
 .falling-palm {
     position: fixed;
