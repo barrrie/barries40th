@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
     <div id="login-screen">
@@ -398,6 +398,22 @@
         </div>
     </div>
 
+    <!-- Spiky Sun Gift Registry -->
+    <div class="gift-sun" id="gift-sun">
+        <svg viewBox="0 0 200 200" class="sun-svg">
+            <polygon class="sun-shape" points="100,10 115,50 150,25 135,65 180,60 145,85 190,100 145,115 180,140 135,135 150,175 115,150 100,190 85,150 50,175 65,135 20,140 55,115 10,100 55,85 20,60 65,65 50,25 85,50"/>
+        </svg>
+        <span class="sun-text">GIFT<br>REGISTRY!</span>
+    </div>
+
+    <!-- Gift Registry Modal -->
+    <div class="gift-modal" id="gift-modal">
+        <div class="gift-modal-content">
+            <button class="gift-modal-close" id="gift-modal-close">&times;</button>
+            <p class="gift-message">PLEASE DO NOT BUY ME A DAMN THING FOR MY BDAY— YOUR PRESENCE IS A GIFT (AWW). ALL GIFTS CAN BE MADE AS DONATIONS TO <a href="https://www.alotrolado.org/" target="_blank">THIS NON-PROFIT</a> PROVIDING LEGAL AND HUMANITARIAN SUPPORT TO REFUGEES, DEPORTEES, AND OTHER MIGRANTS.</p>
+        </div>
+    </div>
+
     <!-- Floating WhatsApp Button -->
     <div class="whatsapp-float" id="whatsapp-float">
         <svg class="whatsapp-spin-text" viewBox="0 0 100 100">
@@ -525,6 +541,25 @@
         contactQrLink.addEventListener('click', (e) => {
             if (!isMobile()) {
                 e.preventDefault();
+            }
+        });
+
+        // Gift Registry Sun Modal
+        const giftSun = document.getElementById('gift-sun');
+        const giftModal = document.getElementById('gift-modal');
+        const giftModalClose = document.getElementById('gift-modal-close');
+
+        giftSun.addEventListener('click', () => {
+            giftModal.classList.add('active');
+        });
+
+        giftModalClose.addEventListener('click', () => {
+            giftModal.classList.remove('active');
+        });
+
+        giftModal.addEventListener('click', (e) => {
+            if (e.target === giftModal) {
+                giftModal.classList.remove('active');
             }
         });
 
