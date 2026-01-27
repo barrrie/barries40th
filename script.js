@@ -19,6 +19,11 @@ function checkAuth() {
 function showContent() {
     loginScreen.classList.add('hidden');
     content.classList.remove('hidden');
+    // Show floating elements after login
+    const whatsappFloat = document.getElementById('whatsapp-float');
+    const giftSun = document.getElementById('gift-sun');
+    if (whatsappFloat) whatsappFloat.classList.add('visible');
+    if (giftSun) giftSun.classList.add('visible');
 }
 
 function showError(message) {

@@ -1027,9 +1027,13 @@ a:hover {
     z-index: 9998;
     width: 100px;
     height: 100px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+}
+
+.whatsapp-float.visible {
+    display: flex;
 }
 
 .whatsapp-spin-text {
@@ -1388,9 +1392,13 @@ header {
     cursor: pointer;
     z-index: 9997;
     animation: sun-ooze 3s ease-in-out infinite;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+}
+
+.gift-sun.visible {
+    display: flex;
 }
 
 @keyframes sun-ooze {
