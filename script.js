@@ -22,8 +22,10 @@ function showContent() {
     // Show floating elements after login
     const whatsappFloat = document.getElementById('whatsapp-float');
     const giftSun = document.getElementById('gift-sun');
+    const spotifyFloat = document.getElementById('spotify-float');
     if (whatsappFloat) whatsappFloat.classList.add('visible');
     if (giftSun) giftSun.classList.add('visible');
+    if (spotifyFloat) spotifyFloat.classList.add('visible');
 }
 
 function showError(message) {
