@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="style.css?v=33">
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
 </head>
 <body>
     <div id="login-screen">
@@ -887,13 +886,13 @@
         };
 
         // Init Firebase
-        let wallDB, wallStorage;
+        let wallDB;
         try {
             const app = firebase.initializeApp(firebaseConfig);
             wallDB = firebase.database();
-            wallStorage = firebase.storage();
+            console.log('Firebase connected:', !!wallDB);
         } catch (e) {
-            console.log('Firebase init error:', e);
+            console.error('Firebase init error:', e);
         }
 
         // Wall elements
@@ -977,7 +976,7 @@
         let wallLoaded = false;
         if (wallDB) {
             const messagesRef = wallDB.ref('messages');
-            messagesRef.orderByChild('timestamp').on('child_added', (snap) => {
+            messagesRef.on('child_added', (snap) => {
                 const msg = snap.val();
                 if (!msg) return;
                 wallEmpty.style.display = 'none';
@@ -989,6 +988,8 @@
                     wallMessages.insertBefore(el, wallEmpty);
                 }
                 wallLoaded = true;
+            }, (err) => {
+                console.error('Wall listen error:', err);
             });
         }
 
