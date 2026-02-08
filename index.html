@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=32">
+    <link rel="stylesheet" href="style.css?v=33">
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
@@ -558,7 +558,7 @@
                             </div>
                             <div class="lazy-step-area">
                                 <p class="lazy-prompt" id="lazy-prompt"></p>
-                                <input type="text" class="lazy-input" id="lazy-input" maxlength="40" autocomplete="off">
+                                <input type="text" class="lazy-input" id="lazy-input" maxlength="100" autocomplete="off">
                                 <div class="lazy-nav">
                                     <button type="button" class="lazy-nav-btn" id="lazy-back">← Back</button>
                                     <span class="lazy-progress" id="lazy-progress"></span>
@@ -1011,11 +1011,11 @@
         const lazyBlanks = document.querySelectorAll('.lazy-blank');
 
         const lazySteps = [
-            { prompt: 'I love your ___', placeholder: 'e.g. smile, vibe, hair...' },
-            { prompt: 'Your big sexy ___', placeholder: 'e.g. brain, heart, energy...' },
-            { prompt: 'That one time we ___', placeholder: 'e.g. danced, cried, ran...' },
-            { prompt: 'That was so ___', placeholder: 'e.g. wild, beautiful, unhinged...' },
-            { prompt: 'I ___ you!', placeholder: 'e.g. love, adore, worship...' }
+            { prompt: 'I love your ___', placeholder: '' },
+            { prompt: 'Your big sexy ___', placeholder: '' },
+            { prompt: 'That one time we ___', placeholder: '' },
+            { prompt: 'That was so ___', placeholder: '' },
+            { prompt: 'I ___ you!', placeholder: '' }
         ];
 
         // Load saved progress from localStorage
