@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=21">
+    <link rel="stylesheet" href="style.css?v=22">
 </head>
 <body>
     <div id="login-screen">
@@ -80,6 +80,37 @@
                 <div class="countdown-item">
                     <span class="countdown-value" id="countdown-seconds">00</span>
                     <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Forecast Strip -->
+        <div class="weather-strip" id="weather-strip">
+            <div class="weather-day" id="weather-day-0">
+                <div class="weather-day-label">Fri Feb 13</div>
+                <div class="weather-day-icon">⏳</div>
+                <div class="weather-day-desc">Loading...</div>
+                <div class="weather-day-temps">
+                    <span class="weather-high">--°</span>
+                    <span class="weather-low">--°</span>
+                </div>
+            </div>
+            <div class="weather-day" id="weather-day-1">
+                <div class="weather-day-label">Sat Feb 14</div>
+                <div class="weather-day-icon">⏳</div>
+                <div class="weather-day-desc">Loading...</div>
+                <div class="weather-day-temps">
+                    <span class="weather-high">--°</span>
+                    <span class="weather-low">--°</span>
+                </div>
+            </div>
+            <div class="weather-day" id="weather-day-2">
+                <div class="weather-day-label">Sun Feb 15</div>
+                <div class="weather-day-icon">⏳</div>
+                <div class="weather-day-desc">Loading...</div>
+                <div class="weather-day-temps">
+                    <span class="weather-high">--°</span>
+                    <span class="weather-low">--°</span>
                 </div>
             </div>
         </div>
@@ -572,6 +603,66 @@
 
     <script src="script.js"></script>
     <script>
+        // Weather Forecast
+        async function fetchWeather() {
+            const WMO_EMOJI = {
+                0: ['☀️', 'Sunny'], 1: ['☀️', 'Mostly Sunny'],
+                2: ['⛅', 'Partly Cloudy'], 3: ['☁️', 'Cloudy'],
+                45: ['🌫️', 'Foggy'], 48: ['🌫️', 'Foggy'],
+                51: ['🌦️', 'Drizzle'], 53: ['🌦️', 'Drizzle'], 55: ['🌦️', 'Drizzle'],
+                56: ['🌦️', 'Freezing Drizzle'], 57: ['🌦️', 'Freezing Drizzle'],
+                61: ['🌧️', 'Light Rain'], 63: ['🌧️', 'Rain'], 65: ['🌧️', 'Heavy Rain'],
+                66: ['🌧️', 'Freezing Rain'], 67: ['🌧️', 'Freezing Rain'],
+                71: ['🌨️', 'Light Snow'], 73: ['🌨️', 'Snow'], 75: ['🌨️', 'Heavy Snow'],
+                77: ['🌨️', 'Snow Grains'],
+                80: ['🌧️', 'Showers'], 81: ['🌧️', 'Showers'], 82: ['🌧️', 'Heavy Showers'],
+                85: ['🌨️', 'Snow Showers'], 86: ['🌨️', 'Snow Showers'],
+                95: ['⛈️', 'Thunderstorm'], 96: ['⛈️', 'Thunderstorm'], 99: ['⛈️', 'Thunderstorm']
+            };
+
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=25.7907&longitude=-80.1300&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York&start_date=2026-02-13&end_date=2026-02-15');
+                const data = await res.json();
+                const days = data.daily;
+
+                for (let i = 0; i < 3; i++) {
+                    const el = document.getElementById('weather-day-' + i);
+                    if (!el || !days.time[i]) continue;
+
+                    const code = days.weather_code[i];
+                    const [emoji, desc] = WMO_EMOJI[code] || ['🌤️', 'Fair'];
+                    const high = Math.round(days.temperature_2m_max[i]);
+                    const low = Math.round(days.temperature_2m_min[i]);
+
+                    el.querySelector('.weather-day-icon').textContent = emoji;
+                    el.querySelector('.weather-day-desc').textContent = desc;
+                    el.querySelector('.weather-high').textContent = high + '°F';
+                    el.querySelector('.weather-low').textContent = low + '°F';
+                }
+            } catch (e) {
+                console.log('Weather fetch failed:', e);
+                for (let i = 0; i < 3; i++) {
+                    const el = document.getElementById('weather-day-' + i);
+                    if (el) {
+                        el.querySelector('.weather-day-icon').textContent = '🌴';
+                        el.querySelector('.weather-day-desc').textContent = "It's Miami baby";
+                        el.querySelector('.weather-high').textContent = '~80°F';
+                        el.querySelector('.weather-low').textContent = '~70°F';
+                    }
+                }
+            }
+        }
+
+        // Fetch weather after login
+        const origShowContent = showContent;
+        showContent = function() {
+            origShowContent();
+            fetchWeather();
+        };
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            fetchWeather();
+        }
+
         // Palm tree rain!
         function createPalmTree() {
             const palm = document.createElement('div');
