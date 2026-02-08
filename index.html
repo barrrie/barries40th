@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=22">
+    <link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
     <div id="login-screen">
@@ -85,7 +85,9 @@
         </div>
 
         <!-- Weather Forecast Strip -->
-        <div class="weather-strip" id="weather-strip">
+        <div class="weather-strip-wrapper">
+            <p class="weather-strip-label">Current Forecast as of <span id="weather-timestamp">...</span></p>
+            <div class="weather-strip" id="weather-strip">
             <div class="weather-day" id="weather-day-0">
                 <div class="weather-day-label">Fri Feb 13</div>
                 <div class="weather-day-icon">⏳</div>
@@ -113,6 +115,7 @@
                     <span class="weather-low">--°</span>
                 </div>
             </div>
+        </div>
         </div>
 
         <div class="content-wrapper">
@@ -639,6 +642,8 @@
                     el.querySelector('.weather-high').textContent = high + '°F';
                     el.querySelector('.weather-low').textContent = low + '°F';
                 }
+                const now = new Date();
+                document.getElementById('weather-timestamp').textContent = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' at ' + now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
             } catch (e) {
                 console.log('Weather fetch failed:', e);
                 for (let i = 0; i < 3; i++) {
