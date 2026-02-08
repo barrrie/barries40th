@@ -551,21 +551,13 @@
             <aside class="wall-rail" id="wall-rail">
                 <section id="the-wall" class="content-section">
                     <h2>The Wall 🧱</h2>
-                    <p class="wall-subtitle">Leave a message, drop a pic, say something nice (or don't)</p>
+                    <p class="wall-subtitle">Leave a message for the guestbook</p>
 
                     <form class="wall-form" id="wall-form">
                         <input type="text" id="wall-name" class="wall-input wall-name-input" placeholder="Your name" maxlength="30" required>
-                        <textarea id="wall-text" class="wall-input wall-text-input" placeholder="Write on the wall..." maxlength="500" rows="2"></textarea>
+                        <textarea id="wall-text" class="wall-input wall-text-input" placeholder="Write on the wall..." maxlength="500" rows="3"></textarea>
                         <div class="wall-form-actions">
-                            <label class="wall-upload-btn" id="wall-upload-label">
-                                <input type="file" id="wall-file" accept="image/*" hidden>
-                                📷 Add Photo
-                            </label>
                             <button type="submit" class="wall-submit-btn" id="wall-submit">Post It 🧱</button>
-                        </div>
-                        <div class="wall-preview" id="wall-preview" style="display:none;">
-                            <img id="wall-preview-img" alt="Preview">
-                            <button type="button" class="wall-preview-remove" id="wall-preview-remove">&times;</button>
                         </div>
                     </form>
 

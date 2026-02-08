@@ -569,7 +569,7 @@ main {
 
 /* ========== WALL RIGHT RAIL ========== */
 .wall-rail {
-    width: 360px;
+    width: 480px;
     flex-shrink: 0;
     border-left: 2px solid var(--text-primary);
     background: var(--gray);
@@ -862,7 +862,7 @@ main {
 /* Medium screens: narrower rail */
 @media (max-width: 1200px) and (min-width: 769px) {
     .wall-rail {
-        width: 300px;
+        width: 380px;
     }
 }
 
