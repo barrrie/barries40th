@@ -19,7 +19,10 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=23">
+    <link rel="stylesheet" href="style.css?v=25">
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
 </head>
 <body>
     <div id="login-screen">
@@ -140,6 +143,10 @@
                     <a href="#inspo" class="sidebar-link">
                         <span class="sidebar-icon">✨</span>
                         Inspo
+                    </a>
+                    <a href="#the-wall" class="sidebar-link">
+                        <span class="sidebar-icon">🧱</span>
+                        The Wall
                     </a>
                 </nav>
             </aside>
@@ -474,6 +481,30 @@
                             <span class="map-text">Uncle B's Big Pinterest Board of Inspiration</span>
                             <span class="map-arrow">→</span>
                         </a>
+                    </div>
+                </section>
+                <section id="the-wall" class="content-section">
+                    <h2>The Wall 🧱</h2>
+                    <p class="wall-subtitle">Leave a message, drop a pic, say something nice (or don't)</p>
+
+                    <form class="wall-form" id="wall-form">
+                        <input type="text" id="wall-name" class="wall-input wall-name-input" placeholder="Your name" maxlength="30" required>
+                        <textarea id="wall-text" class="wall-input wall-text-input" placeholder="Write on the wall..." maxlength="500" rows="2"></textarea>
+                        <div class="wall-form-actions">
+                            <label class="wall-upload-btn" id="wall-upload-label">
+                                <input type="file" id="wall-file" accept="image/*" hidden>
+                                📷 Add Photo
+                            </label>
+                            <button type="submit" class="wall-submit-btn" id="wall-submit">Post It 🧱</button>
+                        </div>
+                        <div class="wall-preview" id="wall-preview" style="display:none;">
+                            <img id="wall-preview-img" alt="Preview">
+                            <button type="button" class="wall-preview-remove" id="wall-preview-remove">&times;</button>
+                        </div>
+                    </form>
+
+                    <div class="wall-messages" id="wall-messages">
+                        <p class="wall-empty" id="wall-empty">No messages yet — be the first! 🦩</p>
                     </div>
                 </section>
             </main>
@@ -813,6 +844,223 @@
 
         spotifyToggle.addEventListener('click', () => {
             spotifyFloat.classList.toggle('expanded');
+        });
+
+        // ========== THE WALL (Firebase) ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxKg-QxPYFrOBDtFGsolhxEhOCZBjE_L0",
+            authDomain: "barries40th.firebaseapp.com",
+            databaseURL: "https://barries40th-default-rtdb.firebaseio.com",
+            projectId: "barries40th",
+            storageBucket: "barries40th.firebasestorage.app",
+            messagingSenderId: "449961341498",
+            appId: "1:449961341498:web:placeholder"
+        };
+
+        // Init Firebase
+        let wallDB, wallStorage;
+        try {
+            const app = firebase.initializeApp(firebaseConfig);
+            wallDB = firebase.database();
+            wallStorage = firebase.storage();
+        } catch (e) {
+            console.log('Firebase init error:', e);
+        }
+
+        // Wall elements
+        const wallForm = document.getElementById('wall-form');
+        const wallName = document.getElementById('wall-name');
+        const wallText = document.getElementById('wall-text');
+        const wallFile = document.getElementById('wall-file');
+        const wallPreview = document.getElementById('wall-preview');
+        const wallPreviewImg = document.getElementById('wall-preview-img');
+        const wallPreviewRemove = document.getElementById('wall-preview-remove');
+        const wallSubmit = document.getElementById('wall-submit');
+        const wallMessages = document.getElementById('wall-messages');
+        const wallEmpty = document.getElementById('wall-empty');
+        const wallUploadLabel = document.getElementById('wall-upload-label');
+
+        let selectedFile = null;
+
+        // Remember name in localStorage
+        const savedName = localStorage.getItem('wall-name');
+        if (savedName) wallName.value = savedName;
+        wallName.addEventListener('input', () => {
+            localStorage.setItem('wall-name', wallName.value);
+        });
+
+        // Image preview
+        wallFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image must be under 5MB!');
+                wallFile.value = '';
+                return;
+            }
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                wallPreviewImg.src = ev.target.result;
+                wallPreview.style.display = 'inline-block';
+                wallUploadLabel.classList.add('has-file');
+            };
+            reader.readAsDataURL(file);
+        });
+
+        wallPreviewRemove.addEventListener('click', () => {
+            selectedFile = null;
+            wallFile.value = '';
+            wallPreview.style.display = 'none';
+            wallPreviewImg.src = '';
+            wallUploadLabel.classList.remove('has-file');
+        });
+
+        // Relative time
+        function timeAgo(ts) {
+            const diff = Date.now() - ts;
+            const mins = Math.floor(diff / 60000);
+            const hrs = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            if (mins < 1) return 'just now';
+            if (mins < 60) return mins + ' min ago';
+            if (hrs < 24) return hrs + (hrs === 1 ? ' hour ago' : ' hours ago');
+            if (days < 7) return days + (days === 1 ? ' day ago' : ' days ago');
+            return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        // Create message element
+        function createMsgEl(msg) {
+            const div = document.createElement('div');
+            div.className = 'wall-msg';
+
+            const header = document.createElement('div');
+            header.className = 'wall-msg-header';
+
+            const name = document.createElement('span');
+            name.className = 'wall-msg-name';
+            name.textContent = msg.name || 'Anonymous';
+
+            const time = document.createElement('span');
+            time.className = 'wall-msg-time';
+            time.textContent = timeAgo(msg.timestamp);
+            time.dataset.ts = msg.timestamp;
+
+            header.appendChild(name);
+            header.appendChild(time);
+            div.appendChild(header);
+
+            if (msg.text) {
+                const text = document.createElement('p');
+                text.className = 'wall-msg-text';
+                text.textContent = msg.text;
+                div.appendChild(text);
+            }
+
+            if (msg.imageURL) {
+                const img = document.createElement('img');
+                img.className = 'wall-msg-img';
+                img.src = msg.imageURL;
+                img.alt = 'Photo from ' + (msg.name || 'Anonymous');
+                img.loading = 'lazy';
+                img.addEventListener('click', () => {
+                    const lb = document.createElement('div');
+                    lb.className = 'wall-lightbox';
+                    const lbImg = document.createElement('img');
+                    lbImg.src = msg.imageURL;
+                    lb.appendChild(lbImg);
+                    lb.addEventListener('click', () => lb.remove());
+                    document.body.appendChild(lb);
+                });
+                div.appendChild(img);
+            }
+
+            return div;
+        }
+
+        // Listen for messages
+        let wallLoaded = false;
+        if (wallDB) {
+            const messagesRef = wallDB.ref('messages');
+            messagesRef.orderByChild('timestamp').on('child_added', (snap) => {
+                const msg = snap.val();
+                if (!msg) return;
+                wallEmpty.style.display = 'none';
+                const el = createMsgEl(msg);
+                // Insert at top (newest first)
+                if (wallMessages.firstChild && wallMessages.firstChild !== wallEmpty) {
+                    wallMessages.insertBefore(el, wallMessages.firstChild);
+                } else {
+                    wallMessages.insertBefore(el, wallEmpty);
+                }
+                wallLoaded = true;
+            });
+        }
+
+        // Update relative timestamps every minute
+        setInterval(() => {
+            document.querySelectorAll('.wall-msg-time[data-ts]').forEach(el => {
+                el.textContent = timeAgo(parseInt(el.dataset.ts));
+            });
+        }, 60000);
+
+        // Submit message
+        wallForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!wallDB) {
+                alert('Firebase not connected. Messages cannot be posted yet.');
+                return;
+            }
+
+            const nameVal = wallName.value.trim();
+            const textVal = wallText.value.trim();
+
+            if (!nameVal) {
+                wallName.focus();
+                return;
+            }
+            if (!textVal && !selectedFile) {
+                wallText.focus();
+                return;
+            }
+
+            wallSubmit.disabled = true;
+            wallSubmit.textContent = 'Posting...';
+
+            try {
+                let imageURL = null;
+
+                // Upload image if selected
+                if (selectedFile) {
+                    const fileName = Date.now() + '_' + selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, '');
+                    const ref = wallStorage.ref('wall-images/' + fileName);
+                    await ref.put(selectedFile);
+                    imageURL = await ref.getDownloadURL();
+                }
+
+                // Push message to DB
+                await wallDB.ref('messages').push({
+                    name: nameVal,
+                    text: textVal,
+                    imageURL: imageURL,
+                    timestamp: Date.now()
+                });
+
+                // Reset form
+                wallText.value = '';
+                selectedFile = null;
+                wallFile.value = '';
+                wallPreview.style.display = 'none';
+                wallPreviewImg.src = '';
+                wallUploadLabel.classList.remove('has-file');
+
+            } catch (err) {
+                console.error('Wall post error:', err);
+                alert('Something went wrong posting your message. Try again!');
+            }
+
+            wallSubmit.disabled = false;
+            wallSubmit.textContent = 'Post It 🧱';
         });
 
     </script>
