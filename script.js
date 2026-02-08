@@ -26,6 +26,8 @@ function showContent() {
     if (whatsappFloat) whatsappFloat.classList.add('visible');
     if (giftSun) giftSun.classList.add('visible');
     if (spotifyFloat) spotifyFloat.classList.add('visible');
+    const packingFloat = document.getElementById('packing-float');
+    if (packingFloat) packingFloat.classList.add('visible');
 }
 
 function showError(message) {
