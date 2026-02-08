@@ -2619,31 +2619,43 @@ header {
 
 .lazy-blank {
     display: inline-block;
-    min-width: 70px;
-    border-bottom: 3px solid var(--text-primary);
+    min-width: 80px;
     font-style: normal;
     font-weight: 900;
     color: var(--text-muted);
-    padding: 0 4px;
+    padding: 2px 8px;
+    margin: 2px 2px;
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    background: var(--white);
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .lazy-blank.filled {
     color: var(--text-primary);
     background: var(--yellow);
-    border-bottom-color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+    border-style: solid;
 }
 
 .lazy-blank.active {
-    background: var(--pink);
     color: var(--text-primary);
-    border-bottom-color: var(--text-primary);
-    animation: blank-pulse 0.8s ease infinite;
+    background: var(--white);
+    border: 3px solid var(--pink);
+    box-shadow: 0 0 0 3px var(--cyan), inset 0 0 8px rgba(255, 107, 181, 0.15);
+    animation: blank-glow 1.2s ease-in-out infinite;
 }
 
-@keyframes blank-pulse {
-    0%, 100% { background: var(--pink); }
-    50% { background: var(--cyan); }
+@keyframes blank-glow {
+    0%, 100% {
+        border-color: var(--pink);
+        box-shadow: 0 0 0 3px var(--cyan), inset 0 0 8px rgba(255, 107, 181, 0.15);
+    }
+    50% {
+        border-color: var(--cyan);
+        box-shadow: 0 0 0 3px var(--pink), inset 0 0 8px rgba(72, 219, 251, 0.15);
+    }
 }
 
 .lazy-step-area {

@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=30">
+    <link rel="stylesheet" href="style.css?v=31">
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
@@ -900,49 +900,15 @@
         const wallForm = document.getElementById('wall-form');
         const wallName = document.getElementById('wall-name');
         const wallText = document.getElementById('wall-text');
-        const wallFile = document.getElementById('wall-file');
-        const wallPreview = document.getElementById('wall-preview');
-        const wallPreviewImg = document.getElementById('wall-preview-img');
-        const wallPreviewRemove = document.getElementById('wall-preview-remove');
         const wallSubmit = document.getElementById('wall-submit');
         const wallMessages = document.getElementById('wall-messages');
         const wallEmpty = document.getElementById('wall-empty');
-        const wallUploadLabel = document.getElementById('wall-upload-label');
-
-        let selectedFile = null;
 
         // Remember name in localStorage
         const savedName = localStorage.getItem('wall-name');
         if (savedName) wallName.value = savedName;
         wallName.addEventListener('input', () => {
             localStorage.setItem('wall-name', wallName.value);
-        });
-
-        // Image preview
-        wallFile.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Image must be under 5MB!');
-                wallFile.value = '';
-                return;
-            }
-            selectedFile = file;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                wallPreviewImg.src = ev.target.result;
-                wallPreview.style.display = 'inline-block';
-                wallUploadLabel.classList.add('has-file');
-            };
-            reader.readAsDataURL(file);
-        });
-
-        wallPreviewRemove.addEventListener('click', () => {
-            selectedFile = null;
-            wallFile.value = '';
-            wallPreview.style.display = 'none';
-            wallPreviewImg.src = '';
-            wallUploadLabel.classList.remove('has-file');
         });
 
         // Relative time
@@ -1052,8 +1018,13 @@
             { prompt: 'I ___ you!', placeholder: 'e.g. love, adore, worship...' }
         ];
 
-        let lazyAnswers = ['', '', '', '', ''];
+        // Load saved progress from localStorage
+        let lazyAnswers = JSON.parse(localStorage.getItem('lazyAnswers') || '["","","","",""]');
         let lazyStep = 0;
+
+        function lazySaveProgress() {
+            localStorage.setItem('lazyAnswers', JSON.stringify(lazyAnswers));
+        }
 
         function lazyUpdateUI() {
             lazyPrompt.textContent = lazySteps[lazyStep].prompt;
@@ -1083,17 +1054,24 @@
                 }
             });
 
-            lazyInput.focus();
+            setTimeout(() => { lazyInput.focus(); }, 50);
         }
 
         function lazyOpen() {
-            lazyAnswers = ['', '', '', '', ''];
+            // Resume from saved progress instead of resetting
             lazyStep = 0;
+            // Jump to first empty blank so people can pick up where they left off
+            for (let i = 0; i < lazyAnswers.length; i++) {
+                if (!lazyAnswers[i]) { lazyStep = i; break; }
+                if (i === lazyAnswers.length - 1) lazyStep = i;
+            }
             lazyModal.classList.add('active');
             lazyUpdateUI();
         }
 
         function lazyCloseModal() {
+            lazySaveCurrent();
+            lazySaveProgress();
             lazyModal.classList.remove('active');
         }
 
@@ -1107,14 +1085,26 @@
             if (e.target === lazyModal) lazyCloseModal();
         });
 
+        // Click on a blank to jump to that step
+        lazyBlanks.forEach((b, i) => {
+            b.addEventListener('click', () => {
+                lazySaveCurrent();
+                lazySaveProgress();
+                lazyStep = i;
+                lazyUpdateUI();
+            });
+        });
+
         lazyInput.addEventListener('input', () => {
             lazyAnswers[lazyStep] = lazyInput.value.trim();
+            lazySaveProgress();
             const blank = lazyBlanks[lazyStep];
             blank.textContent = lazyAnswers[lazyStep] || '______';
         });
 
         lazyBack.addEventListener('click', () => {
             lazySaveCurrent();
+            lazySaveProgress();
             if (lazyStep > 0) {
                 lazyStep--;
                 lazyUpdateUI();
@@ -1123,6 +1113,7 @@
 
         lazyNext.addEventListener('click', async () => {
             lazySaveCurrent();
+            lazySaveProgress();
             if (!lazyAnswers[lazyStep]) {
                 lazyInput.focus();
                 lazyInput.style.background = '#ffcccc';
@@ -1141,7 +1132,7 @@
                     wallName.focus();
                     wallName.style.background = '#ffcccc';
                     setTimeout(() => { wallName.style.background = ''; }, 1000);
-                    alert('Fill in your name first!');
+                    alert('Fill in your name first, then hit IM LAZY!! again!');
                     return;
                 }
 
@@ -1162,7 +1153,10 @@
                         imageURL: null,
                         timestamp: Date.now()
                     });
-                    localStorage.setItem('wallName', name);
+                    localStorage.setItem('wall-name', name);
+                    // Clear saved progress after successful post
+                    localStorage.removeItem('lazyAnswers');
+                    lazyAnswers = ['', '', '', '', ''];
                     lazyCloseModal();
                 } catch (err) {
                     console.error('Lazy post error:', err);
@@ -1196,7 +1190,7 @@
                 wallName.focus();
                 return;
             }
-            if (!textVal && !selectedFile) {
+            if (!textVal) {
                 wallText.focus();
                 return;
             }
@@ -1205,32 +1199,15 @@
             wallSubmit.textContent = 'Posting...';
 
             try {
-                let imageURL = null;
-
-                // Upload image if selected
-                if (selectedFile) {
-                    const fileName = Date.now() + '_' + selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, '');
-                    const ref = wallStorage.ref('wall-images/' + fileName);
-                    await ref.put(selectedFile);
-                    imageURL = await ref.getDownloadURL();
-                }
-
-                // Push message to DB
                 await wallDB.ref('messages').push({
                     name: nameVal,
                     text: textVal,
-                    imageURL: imageURL,
+                    imageURL: null,
                     timestamp: Date.now()
                 });
 
-                // Reset form
                 wallText.value = '';
-                selectedFile = null;
-                wallFile.value = '';
-                wallPreview.style.display = 'none';
-                wallPreviewImg.src = '';
-                wallUploadLabel.classList.remove('has-file');
-
+                localStorage.setItem('wall-name', nameVal);
             } catch (err) {
                 console.error('Wall post error:', err);
                 alert('Something went wrong posting your message. Try again!');
