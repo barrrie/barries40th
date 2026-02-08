@@ -1651,15 +1651,36 @@ header {
 /* ========== FLOATING PACKING LIST ========== */
 .packing-float {
     position: fixed;
-    top: 55%;
-    right: 28px;
+    top: 50%;
+    right: 20px;
+    width: 180px;
+    height: 180px;
     z-index: 9997;
     display: none;
+    align-items: center;
+    justify-content: center;
     animation: packing-bob 3s ease-in-out infinite;
 }
 
 .packing-float.visible {
-    display: block;
+    display: flex;
+}
+
+.packing-spin-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 8s linear infinite;
+    pointer-events: none;
+}
+
+.packing-spin-text text {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 900;
+    fill: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
 }
 
 .packing-float-btn {
@@ -1667,7 +1688,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
     width: 120px;
     height: 120px;
     padding: 16px;
@@ -1681,20 +1702,20 @@ header {
 }
 
 .packing-float-btn:hover {
-    transform: scale(1.15) rotate(-5deg);
+    transform: scale(1.1) rotate(-5deg);
     animation: none;
     background: #ff66dd;
     box-shadow: 8px 8px 0 var(--text-primary);
 }
 
 .packing-emoji {
-    font-size: 36px;
+    font-size: 40px;
     line-height: 1;
 }
 
 .packing-label {
     font-family: var(--font-display);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 900;
     color: var(--text-primary);
     text-transform: uppercase;
@@ -1835,8 +1856,14 @@ header {
 @media (max-width: 768px) {
     .packing-float {
         top: auto;
-        bottom: 140px;
-        right: 16px;
+        bottom: 120px;
+        right: 10px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .packing-spin-text text {
+        font-size: 12px;
     }
 
     .packing-float-btn {
@@ -1848,7 +1875,7 @@ header {
     }
 
     .packing-emoji {
-        font-size: 28px;
+        font-size: 30px;
     }
 
     .packing-label {
