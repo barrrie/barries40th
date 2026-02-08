@@ -951,6 +951,25 @@ a:hover {
 }
 
 /* ========== FAQs ========== */
+.faq-category {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    background: var(--yellow);
+    display: inline-block;
+    padding: 4px 12px;
+    border: 2px solid var(--text-primary);
+    margin-top: var(--spacing-2);
+    margin-bottom: var(--spacing-half);
+}
+
+.faq-category:first-of-type {
+    margin-top: 0;
+}
+
 .faq-item {
     background: var(--white);
     border: 2px solid var(--text-primary);
