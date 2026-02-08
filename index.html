@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=27">
+    <link rel="stylesheet" href="style.css?v=28">
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
@@ -48,6 +48,29 @@
                         </svg>
                         <span class="sun-text">GIFT<br>REGISTRY!</span>
                     </div>
+                    <!-- Pinterest Inspo Heart -->
+                    <a href="https://pinterest.com/barriesegal/south-beach-barries-40th" target="_blank" class="inspo-heart" id="inspo-heart">
+                        <svg viewBox="0 0 100 100" class="heart-svg">
+                            <defs>
+                                <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff6b6b">
+                                        <animate attributeName="stop-color" values="#ff6b6b;#feca57;#48dbfb;#ff9ff3;#54a0ff;#ff6b6b" dur="3s" repeatCount="indefinite"/>
+                                    </stop>
+                                    <stop offset="33%" style="stop-color:#feca57">
+                                        <animate attributeName="stop-color" values="#feca57;#48dbfb;#ff9ff3;#54a0ff;#ff6b6b;#feca57" dur="3s" repeatCount="indefinite"/>
+                                    </stop>
+                                    <stop offset="66%" style="stop-color:#48dbfb">
+                                        <animate attributeName="stop-color" values="#48dbfb;#ff9ff3;#54a0ff;#ff6b6b;#feca57;#48dbfb" dur="3s" repeatCount="indefinite"/>
+                                    </stop>
+                                    <stop offset="100%" style="stop-color:#ff9ff3">
+                                        <animate attributeName="stop-color" values="#ff9ff3;#54a0ff;#ff6b6b;#feca57;#48dbfb;#ff9ff3" dur="3s" repeatCount="indefinite"/>
+                                    </stop>
+                                </linearGradient>
+                            </defs>
+                            <path class="heart-shape" d="M50 88 C25 65, 0 50, 0 30 C0 12, 14 0, 30 0 C40 0, 48 6, 50 14 C52 6, 60 0, 70 0 C86 0, 100 12, 100 30 C100 50, 75 65, 50 88Z"/>
+                        </svg>
+                        <span class="heart-text">INSPO<br>BOARD</span>
+                    </a>
                     <!-- Spotify Player -->
                     <div class="spotify-float" id="spotify-float">
                         <div class="spotify-toggle" id="spotify-toggle">
@@ -198,10 +221,6 @@
                     <a href="#contact" class="sidebar-link">
                         <span class="sidebar-icon">🗣️</span>
                         Talk to a Person
-                    </a>
-                    <a href="#inspo" class="sidebar-link">
-                        <span class="sidebar-icon">✨</span>
-                        Inspo
                     </a>
                     <a href="#the-wall" class="sidebar-link">
                         <span class="sidebar-icon">🧱</span>
@@ -534,16 +553,6 @@
                         <img src="images/whatsapp-qr.png" alt="WhatsApp QR Code" class="contact-qr">
                         <p class="contact-qr-caption">Scan to join the WhatsApp group</p>
                     </a>
-                </section>
-                <section id="inspo" class="content-section">
-                    <h2>Inspo</h2>
-                    <div class="map-link-card">
-                        <a href="https://pinterest.com/barriesegal/south-beach-barries-40th" target="_blank" class="map-link wacky">
-                            <span class="map-icon">📌</span>
-                            <span class="map-text">Uncle B's Big Pinterest Board of Inspiration</span>
-                            <span class="map-arrow">→</span>
-                        </a>
-                    </div>
                 </section>
             </main>
             <aside class="wall-rail" id="wall-rail">
