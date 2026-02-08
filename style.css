@@ -513,12 +513,38 @@ header h1 {
     min-height: calc(100vh - 120px);
 }
 
+/* ========== COLUMN HEADERS ========== */
+.column-header {
+    background: var(--text-primary);
+    color: var(--white);
+    padding: 10px var(--spacing-1);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border-bottom: 2px solid var(--text-primary);
+}
+
+.wall-rail .column-header {
+    background: var(--text-primary);
+    border-bottom: 2px solid var(--text-primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+main > .column-header {
+    margin: calc(-1 * var(--spacing-2));
+    margin-bottom: var(--spacing-2);
+}
+
 /* ========== SIDEBAR ========== */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--white);
     border-right: 2px solid var(--text-primary);
-    padding: var(--spacing-1) 0;
+    padding: 0 0 var(--spacing-1) 0;
     flex-shrink: 0;
 }
 
@@ -577,17 +603,15 @@ main {
     top: 0;
     height: 100vh;
     overflow-y: auto;
+    padding: 0;
+}
+
+.wall-rail > .content-section {
     padding: var(--spacing-1);
 }
 
 .wall-rail .content-section {
     margin-bottom: 0;
-}
-
-.wall-rail .content-section h2 {
-    font-size: 22px;
-    margin-bottom: var(--spacing-1);
-    border-bottom-width: 2px;
 }
 
 .wall-rail .wall-subtitle {
@@ -920,7 +944,17 @@ main {
         overflow-y: visible;
         border-left: none;
         border-top: 2px solid var(--text-primary);
-        padding: var(--spacing-1);
+        padding: 0;
+    }
+
+    main > .column-header {
+        margin: calc(-1 * var(--spacing-1));
+        margin-bottom: var(--spacing-1);
+    }
+
+    /* Hide sidebar column-header on mobile since sidebar is horizontal nav */
+    .sidebar > .column-header {
+        display: none;
     }
 
     /* Header floats: row wrap on mobile */
