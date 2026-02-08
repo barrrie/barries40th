@@ -19,7 +19,7 @@
     <meta name="twitter:image" content="https://barrrie.github.io/barries40th/images/hero.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
-    <link rel="stylesheet" href="style.css?v=25">
+    <link rel="stylesheet" href="style.css?v=26">
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
@@ -39,8 +39,72 @@
 
     <div id="content" class="hidden">
         <header>
-            <img src="images/header-logo.png" alt="Uncle B's Big Bash" class="header-logo">
-            <p class="header-subtitle">February 13-15, 2026</p>
+            <div class="header-inner">
+                <div class="header-floats header-floats-left">
+                    <!-- Gift Registry Sun -->
+                    <div class="gift-sun" id="gift-sun">
+                        <svg viewBox="0 0 200 200" class="sun-svg">
+                            <polygon class="sun-shape" points="100,10 115,50 150,25 135,65 180,60 145,85 190,100 145,115 180,140 135,135 150,175 115,150 100,190 85,150 50,175 65,135 20,140 55,115 10,100 55,85 20,60 65,65 50,25 85,50"/>
+                        </svg>
+                        <span class="sun-text">GIFT<br>REGISTRY!</span>
+                    </div>
+                    <!-- Spotify Player -->
+                    <div class="spotify-float" id="spotify-float">
+                        <div class="spotify-toggle" id="spotify-toggle">
+                            <span class="spotify-icon">🎵</span>
+                            <span class="spotify-label">I TAKE REQUESTS</span>
+                        </div>
+                        <div class="spotify-embed" id="spotify-embed">
+                            <iframe
+                                src="https://open.spotify.com/embed/playlist/4QtjPAjfdInfZf5tVpWwZ5?utm_source=generator&theme=0"
+                                width="100%"
+                                height="352"
+                                frameBorder="0"
+                                allowfullscreen=""
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <img src="images/header-logo.png" alt="Uncle B's Big Bash" class="header-logo">
+                    <p class="header-subtitle">February 13-15, 2026</p>
+                </div>
+                <div class="header-floats header-floats-right">
+                    <!-- WhatsApp Button -->
+                    <div class="whatsapp-float" id="whatsapp-float">
+                        <svg class="whatsapp-spin-text" viewBox="0 0 100 100">
+                            <defs>
+                                <path id="circle-path" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
+                            </defs>
+                            <text>
+                                <textPath href="#circle-path">ENTER THE VOID • ENTER THE VOID • </textPath>
+                            </text>
+                        </svg>
+                        <button class="whatsapp-btn" id="whatsapp-btn" aria-label="Join WhatsApp Group">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Packing List -->
+                    <div class="packing-float" id="packing-float">
+                        <svg class="packing-spin-text" viewBox="0 0 200 200">
+                            <defs>
+                                <path id="packing-circle" d="M 100,100 m -85,0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0"/>
+                            </defs>
+                            <text>
+                                <textPath href="#packing-circle">NEW! • NEW! • NEW! • NEW! • NEW! • NEW! • </textPath>
+                            </text>
+                        </svg>
+                        <div class="packing-float-btn" id="packing-float-btn">
+                            <span class="packing-emoji">🧳</span>
+                            <span class="packing-label">PACKING<br>LIST</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <!-- WhatsApp Join Banner -->
@@ -483,6 +547,8 @@
                         </a>
                     </div>
                 </section>
+            </main>
+            <aside class="wall-rail" id="wall-rail">
                 <section id="the-wall" class="content-section">
                     <h2>The Wall 🧱</h2>
                     <p class="wall-subtitle">Leave a message, drop a pic, say something nice (or don't)</p>
@@ -507,16 +573,8 @@
                         <p class="wall-empty" id="wall-empty">No messages yet — be the first! 🦩</p>
                     </div>
                 </section>
-            </main>
+            </aside>
         </div>
-    </div>
-
-    <!-- Spiky Sun Gift Registry -->
-    <div class="gift-sun" id="gift-sun">
-        <svg viewBox="0 0 200 200" class="sun-svg">
-            <polygon class="sun-shape" points="100,10 115,50 150,25 135,65 180,60 145,85 190,100 145,115 180,140 135,135 150,175 115,150 100,190 85,150 50,175 65,135 20,140 55,115 10,100 55,85 20,60 65,65 50,25 85,50"/>
-        </svg>
-        <span class="sun-text">GIFT<br>REGISTRY!</span>
     </div>
 
     <!-- Gift Registry Modal -->
@@ -524,58 +582,6 @@
         <div class="gift-modal-content">
             <button class="gift-modal-close" id="gift-modal-close">&times;</button>
             <p class="gift-message">PLEASE DO NOT BUY ME A DAMN THING FOR MY BDAY— YOUR PRESENCE IS A GIFT (AWW). ALL GIFTS CAN BE MADE AS DONATIONS TO <a href="https://www.alotrolado.org/" target="_blank">THIS NON-PROFIT</a> PROVIDING LEGAL AND HUMANITARIAN SUPPORT TO REFUGEES, DEPORTEES, AND OTHER MIGRANTS.</p>
-        </div>
-    </div>
-
-    <!-- Floating Spotify Player -->
-    <div class="spotify-float" id="spotify-float">
-        <div class="spotify-toggle" id="spotify-toggle">
-            <span class="spotify-icon">🎵</span>
-            <span class="spotify-label">I TAKE REQUESTS</span>
-        </div>
-        <div class="spotify-embed" id="spotify-embed">
-            <iframe
-                src="https://open.spotify.com/embed/playlist/4QtjPAjfdInfZf5tVpWwZ5?utm_source=generator&theme=0"
-                width="100%"
-                height="352"
-                frameBorder="0"
-                allowfullscreen=""
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy">
-            </iframe>
-        </div>
-    </div>
-
-    <!-- Floating WhatsApp Button -->
-    <div class="whatsapp-float" id="whatsapp-float">
-        <svg class="whatsapp-spin-text" viewBox="0 0 100 100">
-            <defs>
-                <path id="circle-path" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
-            </defs>
-            <text>
-                <textPath href="#circle-path">ENTER THE VOID • ENTER THE VOID • </textPath>
-            </text>
-        </svg>
-        <button class="whatsapp-btn" id="whatsapp-btn" aria-label="Join WhatsApp Group">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-        </button>
-    </div>
-
-    <!-- Floating Packing List -->
-    <div class="packing-float" id="packing-float">
-        <svg class="packing-spin-text" viewBox="0 0 200 200">
-            <defs>
-                <path id="packing-circle" d="M 100,100 m -85,0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0"/>
-            </defs>
-            <text>
-                <textPath href="#packing-circle">NEW! • NEW! • NEW! • NEW! • NEW! • NEW! • </textPath>
-            </text>
-        </svg>
-        <div class="packing-float-btn" id="packing-float-btn">
-            <span class="packing-emoji">🧳</span>
-            <span class="packing-label">PACKING<br>LIST</span>
         </div>
     </div>
 

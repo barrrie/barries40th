@@ -199,13 +199,43 @@ button:active {
 header {
     background: var(--white);
     border-bottom: 2px solid var(--text-primary);
-    padding: var(--spacing-2) var(--spacing-2);
+    padding: var(--spacing-1) var(--spacing-2);
     text-align: center;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-1);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header-center {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.header-floats {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    flex: 1;
+    min-width: 0;
+}
+
+.header-floats-left {
+    justify-content: flex-end;
+}
+
+.header-floats-right {
+    justify-content: flex-start;
 }
 
 .header-logo {
     max-width: 100%;
-    width: 300px;
+    width: 250px;
     height: auto;
     margin-bottom: 4px;
 }
@@ -533,7 +563,60 @@ main {
     flex: 1;
     padding: var(--spacing-2);
     max-width: 900px;
+    min-width: 0;
     background: var(--white);
+}
+
+/* ========== WALL RIGHT RAIL ========== */
+.wall-rail {
+    width: 360px;
+    flex-shrink: 0;
+    border-left: 2px solid var(--text-primary);
+    background: var(--gray);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: var(--spacing-1);
+}
+
+.wall-rail .content-section {
+    margin-bottom: 0;
+}
+
+.wall-rail .content-section h2 {
+    font-size: 22px;
+    margin-bottom: var(--spacing-1);
+    border-bottom-width: 2px;
+}
+
+.wall-rail .wall-subtitle {
+    margin-bottom: var(--spacing-1);
+}
+
+.wall-rail .wall-form {
+    padding: var(--spacing-1);
+    box-shadow: 3px 3px 0 var(--text-primary);
+    margin-bottom: var(--spacing-1);
+}
+
+.wall-rail .wall-name-input {
+    max-width: 100%;
+}
+
+.wall-rail .wall-form-actions {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.wall-rail .wall-upload-btn,
+.wall-rail .wall-submit-btn {
+    text-align: center;
+    justify-content: center;
+}
+
+.wall-rail .wall-msg-img {
+    max-height: 200px;
 }
 
 .content-section {
@@ -775,6 +858,14 @@ main {
 }
 
 /* ========== RESPONSIVE ========== */
+
+/* Medium screens: narrower rail */
+@media (max-width: 1200px) and (min-width: 769px) {
+    .wall-rail {
+        width: 300px;
+    }
+}
+
 @media (max-width: 768px) {
     :root {
         --font-size-display: 42px;
@@ -818,6 +909,45 @@ main {
 
     main {
         padding: var(--spacing-1);
+        max-width: 100%;
+    }
+
+    /* Wall rail stacks below main on mobile */
+    .wall-rail {
+        width: 100%;
+        position: static;
+        height: auto;
+        overflow-y: visible;
+        border-left: none;
+        border-top: 2px solid var(--text-primary);
+        padding: var(--spacing-1);
+    }
+
+    /* Header floats: row wrap on mobile */
+    .header-inner {
+        flex-direction: column;
+        gap: var(--spacing-half);
+    }
+
+    .header-floats {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-half);
+    }
+
+    .header-floats-left,
+    .header-floats-right {
+        justify-content: center;
+    }
+
+    /* Hide spotify from header on mobile (it's fixed at bottom) */
+    .header-floats .spotify-float {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 9997;
     }
 
     header h1 {
@@ -1155,21 +1285,16 @@ a:hover {
     }
 }
 
-/* ========== FLOATING WHATSAPP BUTTON ========== */
+/* ========== WHATSAPP BUTTON ========== */
 .whatsapp-float {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 9998;
-    width: 100px;
-    height: 100px;
-    display: none;
+    position: relative;
+    z-index: 2;
+    width: 80px;
+    height: 80px;
+    display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.whatsapp-float.visible {
-    display: flex;
+    flex-shrink: 0;
 }
 
 .whatsapp-spin-text {
@@ -1195,12 +1320,12 @@ a:hover {
 }
 
 .whatsapp-btn {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: #25D366;
     border: 3px solid var(--text-primary);
-    box-shadow: 4px 4px 0 var(--text-primary);
+    box-shadow: 3px 3px 0 var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1209,6 +1334,7 @@ a:hover {
     transition: all 0.15s ease;
     position: relative;
     z-index: 2;
+    padding: 0;
 }
 
 .whatsapp-btn:hover {
@@ -1295,24 +1421,22 @@ a:hover {
 
 @media (max-width: 768px) {
     .whatsapp-float {
-        bottom: 12px;
-        right: 12px;
-        width: 90px;
-        height: 90px;
+        width: 60px;
+        height: 60px;
     }
 
     .whatsapp-btn {
-        width: 50px;
-        height: 50px;
+        width: 38px;
+        height: 38px;
     }
 
     .whatsapp-btn svg {
-        width: 22px;
-        height: 22px;
+        width: 18px;
+        height: 18px;
     }
 
     .whatsapp-spin-text text {
-        font-size: 8px;
+        font-size: 7px;
     }
 }
 
@@ -1378,6 +1502,11 @@ header {
         height: auto;
         z-index: 99;
         background: var(--white);
+    }
+
+    .wall-rail {
+        position: static;
+        height: auto;
     }
 }
 
@@ -1520,21 +1649,16 @@ header {
 
 /* ========== SPIKY SUN GIFT REGISTRY ========== */
 .gift-sun {
-    position: fixed;
-    top: 15%;
-    left: -30px;
-    width: 180px;
-    height: 180px;
+    position: relative;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
-    z-index: 9997;
+    z-index: 2;
     animation: sun-ooze 3s ease-in-out infinite;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.gift-sun.visible {
-    display: flex;
+    flex-shrink: 0;
 }
 
 @keyframes sun-ooze {
@@ -1563,13 +1687,13 @@ header {
     position: relative;
     z-index: 2;
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 900;
     text-align: center;
     line-height: 1.1;
     color: var(--text-primary);
     transform: rotate(-8deg);
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .gift-sun:hover {
@@ -1582,16 +1706,13 @@ header {
 
 @media (max-width: 768px) {
     .gift-sun {
-        width: 140px;
-        height: 140px;
-        top: auto;
-        bottom: 120px;
-        left: -25px;
+        width: 70px;
+        height: 70px;
     }
 
     .sun-text {
-        font-size: 14px;
-        margin-left: 15px;
+        font-size: 9px;
+        margin-left: 8px;
     }
 }
 
@@ -1676,19 +1797,13 @@ header {
     }
 }
 
-/* ========== FLOATING SPOTIFY PLAYER ========== */
+/* ========== SPOTIFY PLAYER ========== */
 .spotify-float {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 9997;
-    display: none;
-    transition: transform 0.3s ease;
-}
-
-.spotify-float.visible {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column-reverse;
+    flex-shrink: 0;
 }
 
 .spotify-float.expanded .spotify-embed {
@@ -1698,15 +1813,15 @@ header {
 .spotify-toggle {
     flex-shrink: 0;
     background: #ff66cc;
-    border: 4px solid var(--text-primary);
-    padding: 12px 16px;
+    border: 3px solid var(--text-primary);
+    padding: 8px 12px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    box-shadow: 4px 4px 0 var(--text-primary);
+    gap: 6px;
+    box-shadow: 3px 3px 0 var(--text-primary);
     transition: all 0.15s ease;
 }
 
@@ -1735,10 +1850,12 @@ header {
     width: 310px;
     background: var(--white);
     border: 3px solid var(--text-primary);
-    border-bottom: none;
-    box-shadow: 4px 0 0 var(--text-primary);
+    box-shadow: 4px 4px 0 var(--text-primary);
     overflow: hidden;
-    margin-bottom: -1px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
 }
 
 .spotify-embed iframe {
@@ -1748,21 +1865,17 @@ header {
 
 @media (max-width: 768px) {
     .spotify-float {
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
         width: 100%;
-    }
-
-    .spotify-float.visible {
-        display: flex;
-        flex-direction: column-reverse;
-        transform: translateY(0);
+        z-index: 9997;
     }
 
     .spotify-toggle {
         width: 100%;
-        padding: 12px;
+        padding: 10px;
         border: 3px solid var(--text-primary);
         border-bottom: none;
         box-shadow: 0 -4px 0 var(--text-primary);
@@ -1777,6 +1890,7 @@ header {
     }
 
     .spotify-embed {
+        position: static;
         width: 100%;
         border: none;
         border-top: 3px solid var(--text-primary);
@@ -1784,22 +1898,17 @@ header {
     }
 }
 
-/* ========== FLOATING PACKING LIST ========== */
+/* ========== PACKING LIST ========== */
 .packing-float {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    width: 180px;
-    height: 180px;
-    z-index: 9997;
-    display: none;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    z-index: 2;
+    display: flex;
     align-items: center;
     justify-content: center;
     animation: packing-bob 3s ease-in-out infinite;
-}
-
-.packing-float.visible {
-    display: flex;
+    flex-shrink: 0;
 }
 
 .packing-spin-text {
@@ -1812,7 +1921,7 @@ header {
 
 .packing-spin-text text {
     font-family: var(--font-display);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 900;
     fill: var(--text-primary);
     text-transform: uppercase;
@@ -1824,13 +1933,13 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    width: 120px;
-    height: 120px;
-    padding: 16px;
+    gap: 2px;
+    width: 68px;
+    height: 68px;
+    padding: 8px;
     background: #ff44cc;
-    border: 4px solid var(--text-primary);
-    box-shadow: 6px 6px 0 var(--text-primary);
+    border: 3px solid var(--text-primary);
+    box-shadow: 3px 3px 0 var(--text-primary);
     cursor: pointer;
     animation: packing-blink 1.2s ease-in-out infinite;
     transition: transform 0.2s ease;
@@ -1845,13 +1954,13 @@ header {
 }
 
 .packing-emoji {
-    font-size: 40px;
+    font-size: 22px;
     line-height: 1;
 }
 
 .packing-label {
     font-family: var(--font-display);
-    font-size: 14px;
+    font-size: 9px;
     font-weight: 900;
     color: var(--text-primary);
     text-transform: uppercase;
@@ -1991,11 +2100,8 @@ header {
 
 @media (max-width: 768px) {
     .packing-float {
-        top: auto;
-        bottom: 120px;
-        right: 10px;
-        width: 150px;
-        height: 150px;
+        width: 70px;
+        height: 70px;
     }
 
     .packing-spin-text text {
@@ -2003,19 +2109,19 @@ header {
     }
 
     .packing-float-btn {
-        width: 100px;
-        height: 100px;
-        padding: 12px;
-        border-width: 3px;
-        box-shadow: 4px 4px 0 var(--text-primary);
+        width: 50px;
+        height: 50px;
+        padding: 6px;
+        border-width: 2px;
+        box-shadow: 2px 2px 0 var(--text-primary);
     }
 
     .packing-emoji {
-        font-size: 30px;
+        font-size: 16px;
     }
 
     .packing-label {
-        font-size: 11px;
+        font-size: 7px;
     }
 
     .packing-modal-content {
