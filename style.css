@@ -1833,17 +1833,18 @@ header {
 
 /* ========== PINTEREST INSPO HEART ========== */
 .inspo-heart {
-    position: relative;
-    width: 90px;
-    height: 85px;
+    position: fixed;
+    bottom: 140px;
+    right: 30px;
+    width: 110px;
+    height: 100px;
     cursor: pointer;
-    z-index: 2;
+    z-index: 9990;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
     text-decoration: none;
-    animation: heart-beat 2s ease-in-out infinite;
+    animation: heart-beat 2s ease-in-out infinite, heart-float 6s ease-in-out infinite;
 }
 
 @keyframes heart-beat {
@@ -1864,6 +1865,21 @@ header {
     }
 }
 
+@keyframes heart-float {
+    0%, 100% {
+        translate: 0 0;
+    }
+    25% {
+        translate: -8px -12px;
+    }
+    50% {
+        translate: 5px -6px;
+    }
+    75% {
+        translate: -3px 8px;
+    }
+}
+
 .heart-svg {
     position: absolute;
     width: 100%;
@@ -1875,37 +1891,41 @@ header {
     fill: url(#heart-gradient);
     stroke: var(--text-primary);
     stroke-width: 3;
-    filter: drop-shadow(3px 3px 0 var(--text-primary));
+    filter: drop-shadow(4px 4px 0 var(--text-primary));
 }
 
 .heart-text {
     position: relative;
     z-index: 2;
     font-family: var(--font-display);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 900;
     text-align: center;
     line-height: 1.1;
     color: var(--text-primary);
     margin-top: 4px;
+    letter-spacing: 0.05em;
 }
 
 .inspo-heart:hover {
-    animation: heart-beat 0.6s ease-in-out infinite;
+    animation: heart-beat 0.5s ease-in-out infinite;
 }
 
 .inspo-heart:hover .heart-shape {
     stroke-width: 4;
+    filter: drop-shadow(6px 6px 0 var(--text-primary));
 }
 
 @media (max-width: 768px) {
     .inspo-heart {
-        width: 65px;
-        height: 60px;
+        width: 85px;
+        height: 78px;
+        bottom: 80px;
+        right: 14px;
     }
 
     .heart-text {
-        font-size: 8px;
+        font-size: 10px;
     }
 }
 
