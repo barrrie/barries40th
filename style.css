@@ -225,6 +225,27 @@ header {
     min-width: 0;
 }
 
+/* Off-kilter positioning for header float items */
+.header-floats .gift-sun {
+    transform-origin: center center;
+    margin-top: -12px;
+}
+
+.header-floats .spotify-float {
+    margin-top: 14px;
+    transform: rotate(2deg);
+}
+
+.header-floats .whatsapp-float {
+    margin-top: -8px;
+    transform: rotate(-3deg);
+}
+
+.header-floats .packing-float {
+    margin-top: 10px;
+    transform: rotate(2.5deg);
+}
+
 .header-floats-left {
     justify-content: flex-end;
 }
@@ -974,6 +995,13 @@ main {
         justify-content: center;
     }
 
+    /* Reset off-kilter offsets on mobile — tighter layout */
+    .header-floats .gift-sun,
+    .header-floats .whatsapp-float,
+    .header-floats .packing-float {
+        margin-top: 0;
+    }
+
     /* Hide spotify from header on mobile (it's fixed at bottom) */
     .header-floats .spotify-float {
         position: fixed;
@@ -982,6 +1010,8 @@ main {
         right: 0;
         width: 100%;
         z-index: 9997;
+        transform: none;
+        margin-top: 0;
     }
 
     header h1 {
