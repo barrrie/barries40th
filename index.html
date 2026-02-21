@@ -140,6 +140,15 @@
                     <span class="countdown-label">Seconds</span>
                 </div>
             </div>
+
+            <!-- Party Over Stamp -->
+            <div class="party-over-stamp">
+                <div class="party-over-stamp-inner">
+                    <span class="stamp-line-big">UNCLE B's BIG BASH IS NOW OVER!!!!</span>
+                    <span class="stamp-line-mid">WE DID IT!! THANK U TO SUDAFED AND VACATION SUNSCREEN!</span>
+                    <span class="stamp-line-link">Check out the pictures <a href="photos.html">here</a>!</span>
+                </div>
+            </div>
         </div>
 
         <!-- Weather Forecast Strip -->
@@ -632,18 +641,6 @@
         </div>
     </div>
 
-    <!-- Party Over Modal -->
-    <div class="party-over-modal" id="party-over-modal">
-        <div class="party-over-content">
-            <button class="party-over-close" id="party-over-close">&times;</button>
-            <span class="party-over-emoji">🎉🦩🎉</span>
-            <h2>UNCLE B's BIG BASH IS NOW OVER!!!!</h2>
-            <p>WE DID IT!! THANK U TO SUDAFED AND VACATION SUNSCREEN!</p>
-            <p>Check out the pictures <a href="photos.html">here</a>!</p>
-            <button class="party-over-dismiss" id="party-over-dismiss">LET'S GOOO</button>
-        </div>
-    </div>
-
     <!-- WhatsApp QR Modal -->
     <div class="whatsapp-modal" id="whatsapp-modal">
         <div class="whatsapp-modal-content">
@@ -708,35 +705,15 @@
             }
         }
 
-        // Fetch weather after login + show party over modal
+        // Fetch weather after login
         const origShowContent = showContent;
         showContent = function() {
             origShowContent();
             fetchWeather();
-            // Show party-over modal if user hasn't dismissed it this session
-            if (!sessionStorage.getItem('party-over-seen')) {
-                document.getElementById('party-over-modal').classList.add('active');
-            }
         };
         if (sessionStorage.getItem('authenticated') === 'true') {
             fetchWeather();
         }
-
-        // Party Over Modal dismiss
-        const partyOverModal = document.getElementById('party-over-modal');
-        const partyOverClose = document.getElementById('party-over-close');
-        const partyOverDismiss = document.getElementById('party-over-dismiss');
-
-        function closePartyOverModal() {
-            partyOverModal.classList.remove('active');
-            sessionStorage.setItem('party-over-seen', 'true');
-        }
-
-        partyOverClose.addEventListener('click', closePartyOverModal);
-        partyOverDismiss.addEventListener('click', closePartyOverModal);
-        partyOverModal.addEventListener('click', (e) => {
-            if (e.target === partyOverModal) closePartyOverModal();
-        });
 
         // Palm tree rain!
         function createPalmTree() {
