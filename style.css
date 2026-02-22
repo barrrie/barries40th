@@ -2629,6 +2629,32 @@ header {
     animation: gallery-title-shimmer 4s ease infinite;
 }
 
+.gallery-photo-dump {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.gallery-photo-dump a {
+    color: var(--accent);
+    font-weight: 900;
+    text-decoration: none;
+    border-bottom: 3px solid var(--accent);
+    padding: 0 3px;
+    transition: all 0.1s ease;
+}
+
+.gallery-photo-dump a:hover {
+    background: var(--accent);
+    color: var(--white);
+}
+
 @keyframes gallery-title-shimmer {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -2843,6 +2869,10 @@ header {
 @media (max-width: 768px) {
     .gallery-title {
         font-size: 48px;
+    }
+
+    .gallery-photo-dump {
+        font-size: 17px;
     }
 
     .gallery-grid {
