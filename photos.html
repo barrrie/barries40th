@@ -265,6 +265,11 @@
         </div>
     </div>
 
+    <!-- Music Toggle Button -->
+    <button class="music-toggle" id="music-toggle" title="Toggle music">
+        <span class="music-icon" id="music-icon">🔊</span>
+    </button>
+
     <script src="script.js"></script>
     <script>
         // Gallery lightbox
@@ -325,6 +330,235 @@
             } else if (e.key === 'ArrowRight') {
                 navigateLightbox(1);
             }
+        });
+
+        // ========== WORLD HOLD ON - MIDI SYNTH ==========
+        let audioCtx = null;
+        let musicPlaying = false;
+        let musicNodes = [];
+        let musicTimeout = null;
+        let loopInterval = null;
+
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+
+        // Note frequencies
+        const NOTE = {
+            C3: 130.81, D3: 146.83, Eb3: 155.56, E3: 164.81, F3: 174.61, G3: 196.00, Ab3: 207.65, Bb3: 233.08,
+            C4: 261.63, D4: 293.66, Eb4: 311.13, E4: 329.63, F4: 349.23, G4: 392.00, Ab4: 415.30, Bb4: 466.16,
+            C5: 523.25, D5: 587.33, Eb5: 622.25, E5: 659.26, F5: 698.46, G5: 783.99, Ab5: 830.61, Bb5: 932.33,
+            C6: 1046.50
+        };
+
+        // "World Hold On" - main synth riff (Bb minor key)
+        // The iconic rising synth hook
+        const melody = [
+            // Bar 1-2: The main hook
+            { note: 'Bb4', dur: 0.15, time: 0.0 },
+            { note: 'C5',  dur: 0.15, time: 0.15 },
+            { note: 'Eb5', dur: 0.3,  time: 0.3 },
+            { note: 'F5',  dur: 0.15, time: 0.6 },
+            { note: 'Eb5', dur: 0.15, time: 0.75 },
+            { note: 'C5',  dur: 0.3,  time: 0.9 },
+            { note: 'Bb4', dur: 0.3,  time: 1.2 },
+            { note: 'Ab4', dur: 0.6,  time: 1.5 },
+            // Bar 3-4: Resolution
+            { note: 'Bb4', dur: 0.15, time: 2.4 },
+            { note: 'C5',  dur: 0.15, time: 2.55 },
+            { note: 'Eb5', dur: 0.3,  time: 2.7 },
+            { note: 'F5',  dur: 0.3,  time: 3.0 },
+            { note: 'Eb5', dur: 0.3,  time: 3.3 },
+            { note: 'F5',  dur: 0.3,  time: 3.6 },
+            { note: 'Gb5', dur: 0.6,  time: 3.9 },
+        ];
+
+        // Bass line - driving house bass
+        const bass = [
+            // Bar 1
+            { note: 'Bb3', dur: 0.2, time: 0.0 },
+            { note: 'Bb3', dur: 0.2, time: 0.3 },
+            { note: 'Bb3', dur: 0.2, time: 0.6 },
+            { note: 'Ab3', dur: 0.2, time: 0.9 },
+            { note: 'Ab3', dur: 0.2, time: 1.2 },
+            // Bar 2
+            { note: 'Gb3', dur: 0.2, time: 1.5 },
+            { note: 'Gb3', dur: 0.2, time: 1.8 },
+            { note: 'Ab3', dur: 0.2, time: 2.1 },
+            // Bar 3
+            { note: 'Bb3', dur: 0.2, time: 2.4 },
+            { note: 'Bb3', dur: 0.2, time: 2.7 },
+            { note: 'Bb3', dur: 0.2, time: 3.0 },
+            { note: 'Ab3', dur: 0.2, time: 3.3 },
+            // Bar 4
+            { note: 'Gb3', dur: 0.2, time: 3.6 },
+            { note: 'Ab3', dur: 0.2, time: 3.9 },
+            { note: 'Bb3', dur: 0.2, time: 4.2 },
+        ];
+
+        // 4-on-the-floor kick
+        const kicks = [0, 0.6, 1.2, 1.8, 2.4, 3.0, 3.6, 4.2];
+
+        const LOOP_LENGTH = 4.8; // seconds per loop
+
+        function createSynth(ctx, freq, startTime, duration, type, volume, attack, release) {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const filter = ctx.createBiquadFilter();
+
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, startTime);
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(type === 'sawtooth' ? 2000 : 4000, startTime);
+            filter.Q.setValueAtTime(2, startTime);
+
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(volume, startTime + attack);
+            gain.gain.setValueAtTime(volume, startTime + duration - release);
+            gain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(startTime);
+            osc.stop(startTime + duration + 0.05);
+
+            musicNodes.push(osc, gain, filter);
+        }
+
+        function createKick(ctx, startTime) {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.frequency.setValueAtTime(150, startTime);
+            osc.frequency.exponentialRampToValueAtTime(30, startTime + 0.15);
+
+            gain.gain.setValueAtTime(0.4, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(startTime);
+            osc.stop(startTime + 0.35);
+
+            musicNodes.push(osc, gain);
+        }
+
+        function createHihat(ctx, startTime) {
+            const bufferSize = ctx.sampleRate * 0.05;
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 8000;
+
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(0.08, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
+
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+
+            noise.start(startTime);
+            noise.stop(startTime + 0.06);
+
+            musicNodes.push(noise, filter, gain);
+        }
+
+        function scheduleLoop(offset) {
+            if (!audioCtx || !musicPlaying) return;
+
+            const now = audioCtx.currentTime + offset;
+
+            // Melody - bright saw synth
+            melody.forEach(n => {
+                const freq = NOTE[n.note] || NOTE['C4'];
+                createSynth(audioCtx, freq, now + n.time, n.dur, 'sawtooth', 0.12, 0.02, 0.05);
+            });
+
+            // Bass - sub square
+            bass.forEach(n => {
+                const freq = (NOTE[n.note] || NOTE['C3']) / 2;
+                createSynth(audioCtx, freq, now + n.time, n.dur, 'square', 0.15, 0.01, 0.05);
+            });
+
+            // Kick drum
+            kicks.forEach(t => {
+                createKick(audioCtx, now + t);
+            });
+
+            // Hi-hats on offbeats
+            kicks.forEach(t => {
+                createHihat(audioCtx, now + t + 0.3);
+            });
+        }
+
+        function startMusic() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            musicPlaying = true;
+            musicIcon.textContent = '🔊';
+            musicToggle.classList.add('playing');
+
+            // Schedule first loop immediately
+            scheduleLoop(0.05);
+
+            // Schedule subsequent loops
+            loopInterval = setInterval(() => {
+                if (musicPlaying) {
+                    scheduleLoop(0.05);
+                }
+            }, LOOP_LENGTH * 1000);
+        }
+
+        function stopMusic() {
+            musicPlaying = false;
+            musicIcon.textContent = '🔇';
+            musicToggle.classList.remove('playing');
+
+            if (loopInterval) {
+                clearInterval(loopInterval);
+                loopInterval = null;
+            }
+
+            // Disconnect all nodes
+            musicNodes.forEach(node => {
+                try { node.disconnect(); } catch(e) {}
+            });
+            musicNodes = [];
+        }
+
+        musicToggle.addEventListener('click', () => {
+            if (musicPlaying) {
+                stopMusic();
+            } else {
+                startMusic();
+            }
+        });
+
+        // Auto-play on first user interaction (click anywhere)
+        let musicAutoStarted = false;
+        document.addEventListener('click', function autoStart() {
+            if (!musicAutoStarted && !musicPlaying) {
+                musicAutoStarted = true;
+                startMusic();
+            }
+            document.removeEventListener('click', autoStart);
         });
     </script>
 </body>

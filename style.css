@@ -2904,6 +2904,58 @@ header {
     .gallery-lightbox-next { right: 6px; }
 }
 
+/* ========== MUSIC TOGGLE ========== */
+.music-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    width: 56px;
+    height: 56px;
+    border: 3px solid var(--text-primary);
+    background: var(--white);
+    box-shadow: 4px 4px 0 var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+}
+
+.music-toggle:hover {
+    background: var(--yellow);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--text-primary);
+}
+
+.music-toggle:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--text-primary);
+}
+
+.music-toggle.playing {
+    background: var(--yellow);
+    animation: music-pulse 1s ease infinite;
+}
+
+@keyframes music-pulse {
+    0%, 100% { box-shadow: 4px 4px 0 var(--text-primary); }
+    50% { box-shadow: 6px 6px 0 var(--text-primary); transform: translate(-1px, -1px); }
+}
+
+@media (max-width: 768px) {
+    .music-toggle {
+        bottom: 16px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}
+
 /* ========== PARTY OVER STAMP (over countdown) ========== */
 .party-over-stamp {
     position: absolute;
