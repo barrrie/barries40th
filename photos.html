@@ -27,6 +27,13 @@
                 <h1 class="gallery-title">PARTY PICS!</h1>
                 <p class="gallery-photo-dump">got some pics from the weekend burning a hole in your camera roll? throw them into the photo dump group on whatsapp <a href="https://chat.whatsapp.com/D50MjApvE7y14kzEoAcb15?mode=gi_t" target="_blank">here</a></p>
                 <p class="gallery-subtitle">ty to our photographer Sasha for capturing the moment and making us look hot <a href="https://instagram.com/bigbadboiwoofwoof" target="_blank" class="gallery-ig-link">@bigbadboiwoofwoof</a></p>
+
+                <div class="music-bar">
+                    <button class="music-play-btn" id="music-toggle">
+                        <span class="music-btn-icon" id="music-icon">🔊</span>
+                        <span class="music-btn-text" id="music-text">PLAY WELCOME TO MIAMI</span>
+                    </button>
+                </div>
             </div>
 
             <div class="gallery-grid">
@@ -265,10 +272,6 @@
         </div>
     </div>
 
-    <!-- Music Toggle Button -->
-    <button class="music-toggle" id="music-toggle" title="Toggle music">
-        <span class="music-icon" id="music-icon">🔊</span>
-    </button>
 
     <script src="script.js"></script>
     <script>
@@ -341,6 +344,7 @@
 
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
+        const musicText = document.getElementById('music-text');
 
         // Note frequencies
         const NOTE = {
@@ -525,6 +529,7 @@
 
             musicPlaying = true;
             musicIcon.textContent = '🔊';
+            musicText.textContent = 'NOW PLAYING: WELCOME TO MIAMI';
             musicToggle.classList.add('playing');
 
             // Schedule first loop immediately
@@ -541,6 +546,7 @@
         function stopMusic() {
             musicPlaying = false;
             musicIcon.textContent = '🔇';
+            musicText.textContent = 'PLAY WELCOME TO MIAMI';
             musicToggle.classList.remove('playing');
 
             if (loopInterval) {
@@ -561,16 +567,6 @@
             } else {
                 startMusic();
             }
-        });
-
-        // Auto-play on first user interaction (click anywhere)
-        let musicAutoStarted = false;
-        document.addEventListener('click', function autoStart() {
-            if (!musicAutoStarted && !musicPlaying) {
-                musicAutoStarted = true;
-                startMusic();
-            }
-            document.removeEventListener('click', autoStart);
         });
     </script>
 </body>
