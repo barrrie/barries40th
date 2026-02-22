@@ -332,7 +332,7 @@
             }
         });
 
-        // ========== WORLD HOLD ON - MIDI SYNTH ==========
+        // ========== WELCOME TO MIAMI - MIDI SYNTH ==========
         let audioCtx = null;
         let musicPlaying = false;
         let musicNodes = [];
@@ -344,61 +344,73 @@
 
         // Note frequencies
         const NOTE = {
-            C3: 130.81, D3: 146.83, Eb3: 155.56, E3: 164.81, F3: 174.61, G3: 196.00, Ab3: 207.65, Bb3: 233.08,
-            C4: 261.63, D4: 293.66, Eb4: 311.13, E4: 329.63, F4: 349.23, G4: 392.00, Ab4: 415.30, Bb4: 466.16,
-            C5: 523.25, D5: 587.33, Eb5: 622.25, E5: 659.26, F5: 698.46, G5: 783.99, Ab5: 830.61, Bb5: 932.33,
+            E2: 82.41, G2: 98.00, A2: 110.00, B2: 123.47,
+            C3: 130.81, D3: 146.83, E3: 164.81, Fs3: 185.00, G3: 196.00, A3: 220.00, B3: 246.94,
+            C4: 261.63, D4: 293.66, E4: 329.63, Fs4: 369.99, G4: 392.00, A4: 440.00, B4: 493.88,
+            C5: 523.25, D5: 587.33, E5: 659.26, Fs5: 739.99, G5: 783.99, A5: 880.00, B5: 987.77,
             C6: 1046.50
         };
 
-        // "World Hold On" - main synth riff (Bb minor key)
-        // The iconic rising synth hook
+        // "Welcome to Miami" - Will Smith
+        // The iconic horn/synth hook sampled from "And the Beat Goes On" by The Whispers
+        // Key of E minor, ~110 BPM, bouncy Latin-funk feel
         const melody = [
-            // Bar 1-2: The main hook
-            { note: 'Bb4', dur: 0.15, time: 0.0 },
-            { note: 'C5',  dur: 0.15, time: 0.15 },
-            { note: 'Eb5', dur: 0.3,  time: 0.3 },
-            { note: 'F5',  dur: 0.15, time: 0.6 },
-            { note: 'Eb5', dur: 0.15, time: 0.75 },
-            { note: 'C5',  dur: 0.3,  time: 0.9 },
-            { note: 'Bb4', dur: 0.3,  time: 1.2 },
-            { note: 'Ab4', dur: 0.6,  time: 1.5 },
-            // Bar 3-4: Resolution
-            { note: 'Bb4', dur: 0.15, time: 2.4 },
-            { note: 'C5',  dur: 0.15, time: 2.55 },
-            { note: 'Eb5', dur: 0.3,  time: 2.7 },
-            { note: 'F5',  dur: 0.3,  time: 3.0 },
-            { note: 'Eb5', dur: 0.3,  time: 3.3 },
-            { note: 'F5',  dur: 0.3,  time: 3.6 },
-            { note: 'Gb5', dur: 0.6,  time: 3.9 },
+            // The signature riff - "Wel-come to Mi-a-mi"
+            // Phrase 1
+            { note: 'B4',  dur: 0.18, time: 0.0 },
+            { note: 'B4',  dur: 0.18, time: 0.22 },
+            { note: 'D5',  dur: 0.35, time: 0.44 },
+            { note: 'B4',  dur: 0.18, time: 0.88 },
+            { note: 'A4',  dur: 0.35, time: 1.1 },
+            { note: 'G4',  dur: 0.5,  time: 1.54 },
+            // Phrase 2 - "Bien-ve-ni-dos a Mi-a-mi"
+            { note: 'B4',  dur: 0.18, time: 2.2 },
+            { note: 'B4',  dur: 0.18, time: 2.42 },
+            { note: 'D5',  dur: 0.35, time: 2.64 },
+            { note: 'E5',  dur: 0.18, time: 3.08 },
+            { note: 'D5',  dur: 0.18, time: 3.3 },
+            { note: 'B4',  dur: 0.35, time: 3.52 },
+            { note: 'A4',  dur: 0.5,  time: 3.96 },
+            // Phrase 3 - bouncing turnaround
+            { note: 'G4',  dur: 0.18, time: 4.62 },
+            { note: 'A4',  dur: 0.18, time: 4.84 },
+            { note: 'B4',  dur: 0.35, time: 5.06 },
+            { note: 'A4',  dur: 0.18, time: 5.5 },
+            { note: 'G4',  dur: 0.18, time: 5.72 },
+            { note: 'E4',  dur: 0.5,  time: 5.94 },
         ];
 
-        // Bass line - driving house bass
+        // Bass line - bouncy funk bass (sampled feel from "And the Beat Goes On")
         const bass = [
-            // Bar 1
-            { note: 'Bb3', dur: 0.2, time: 0.0 },
-            { note: 'Bb3', dur: 0.2, time: 0.3 },
-            { note: 'Bb3', dur: 0.2, time: 0.6 },
-            { note: 'Ab3', dur: 0.2, time: 0.9 },
-            { note: 'Ab3', dur: 0.2, time: 1.2 },
+            { note: 'E3',  dur: 0.18, time: 0.0 },
+            { note: 'E3',  dur: 0.12, time: 0.33 },
+            { note: 'G3',  dur: 0.18, time: 0.55 },
+            { note: 'A3',  dur: 0.12, time: 0.88 },
+            { note: 'B3',  dur: 0.18, time: 1.1 },
+            { note: 'A3',  dur: 0.12, time: 1.43 },
+            { note: 'G3',  dur: 0.25, time: 1.65 },
             // Bar 2
-            { note: 'Gb3', dur: 0.2, time: 1.5 },
-            { note: 'Gb3', dur: 0.2, time: 1.8 },
-            { note: 'Ab3', dur: 0.2, time: 2.1 },
+            { note: 'E3',  dur: 0.18, time: 2.2 },
+            { note: 'E3',  dur: 0.12, time: 2.53 },
+            { note: 'G3',  dur: 0.18, time: 2.75 },
+            { note: 'A3',  dur: 0.12, time: 3.08 },
+            { note: 'B3',  dur: 0.18, time: 3.3 },
+            { note: 'A3',  dur: 0.12, time: 3.63 },
+            { note: 'G3',  dur: 0.25, time: 3.85 },
             // Bar 3
-            { note: 'Bb3', dur: 0.2, time: 2.4 },
-            { note: 'Bb3', dur: 0.2, time: 2.7 },
-            { note: 'Bb3', dur: 0.2, time: 3.0 },
-            { note: 'Ab3', dur: 0.2, time: 3.3 },
-            // Bar 4
-            { note: 'Gb3', dur: 0.2, time: 3.6 },
-            { note: 'Ab3', dur: 0.2, time: 3.9 },
-            { note: 'Bb3', dur: 0.2, time: 4.2 },
+            { note: 'E3',  dur: 0.18, time: 4.4 },
+            { note: 'G3',  dur: 0.12, time: 4.62 },
+            { note: 'A3',  dur: 0.18, time: 4.84 },
+            { note: 'B3',  dur: 0.12, time: 5.06 },
+            { note: 'A3',  dur: 0.18, time: 5.28 },
+            { note: 'G3',  dur: 0.12, time: 5.5 },
+            { note: 'E3',  dur: 0.35, time: 5.72 },
         ];
 
-        // 4-on-the-floor kick
-        const kicks = [0, 0.6, 1.2, 1.8, 2.4, 3.0, 3.6, 4.2];
+        // Funky kick pattern - not straight 4/4, more syncopated
+        const kicks = [0, 0.55, 1.1, 1.65, 2.2, 2.75, 3.3, 3.85, 4.4, 4.95, 5.5, 6.05];
 
-        const LOOP_LENGTH = 4.8; // seconds per loop
+        const LOOP_LENGTH = 6.6; // seconds per loop
 
         function createSynth(ctx, freq, startTime, duration, type, volume, attack, release) {
             const osc = ctx.createOscillator();
