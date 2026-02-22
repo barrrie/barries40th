@@ -31,7 +31,7 @@
                 <div class="music-bar">
                     <button class="music-play-btn" id="music-toggle">
                         <span class="music-btn-icon" id="music-icon">🔊</span>
-                        <span class="music-btn-text" id="music-text">PLAY WELCOME TO MIAMI</span>
+                        <span class="music-btn-text" id="music-text">PLAY SPA VIBES</span>
                     </button>
                 </div>
             </div>
@@ -335,188 +335,132 @@
             }
         });
 
-        // ========== WELCOME TO MIAMI - MIDI SYNTH ==========
+        // ========== SPA AMBIENT PADS ==========
         let audioCtx = null;
         let musicPlaying = false;
         let musicNodes = [];
-        let musicTimeout = null;
-        let loopInterval = null;
+        let loopTimeout = null;
 
         const musicToggle = document.getElementById('music-toggle');
         const musicIcon = document.getElementById('music-icon');
         const musicText = document.getElementById('music-text');
 
-        // Note frequencies
-        const NOTE = {
-            E2: 82.41, G2: 98.00, A2: 110.00, B2: 123.47,
-            C3: 130.81, D3: 146.83, E3: 164.81, Fs3: 185.00, G3: 196.00, A3: 220.00, B3: 246.94,
-            C4: 261.63, D4: 293.66, E4: 329.63, Fs4: 369.99, G4: 392.00, A4: 440.00, B4: 493.88,
-            C5: 523.25, D5: 587.33, E5: 659.26, Fs5: 739.99, G5: 783.99, A5: 880.00, B5: 987.77,
-            C6: 1046.50
-        };
-
-        // "Welcome to Miami" - Will Smith
-        // The iconic horn/synth hook sampled from "And the Beat Goes On" by The Whispers
-        // Key of E minor, ~110 BPM, bouncy Latin-funk feel
-        const melody = [
-            // The signature riff - "Wel-come to Mi-a-mi"
-            // Phrase 1
-            { note: 'B4',  dur: 0.18, time: 0.0 },
-            { note: 'B4',  dur: 0.18, time: 0.22 },
-            { note: 'D5',  dur: 0.35, time: 0.44 },
-            { note: 'B4',  dur: 0.18, time: 0.88 },
-            { note: 'A4',  dur: 0.35, time: 1.1 },
-            { note: 'G4',  dur: 0.5,  time: 1.54 },
-            // Phrase 2 - "Bien-ve-ni-dos a Mi-a-mi"
-            { note: 'B4',  dur: 0.18, time: 2.2 },
-            { note: 'B4',  dur: 0.18, time: 2.42 },
-            { note: 'D5',  dur: 0.35, time: 2.64 },
-            { note: 'E5',  dur: 0.18, time: 3.08 },
-            { note: 'D5',  dur: 0.18, time: 3.3 },
-            { note: 'B4',  dur: 0.35, time: 3.52 },
-            { note: 'A4',  dur: 0.5,  time: 3.96 },
-            // Phrase 3 - bouncing turnaround
-            { note: 'G4',  dur: 0.18, time: 4.62 },
-            { note: 'A4',  dur: 0.18, time: 4.84 },
-            { note: 'B4',  dur: 0.35, time: 5.06 },
-            { note: 'A4',  dur: 0.18, time: 5.5 },
-            { note: 'G4',  dur: 0.18, time: 5.72 },
-            { note: 'E4',  dur: 0.5,  time: 5.94 },
+        // Dreamy chord progression - C maj7, Am7, Fmaj7, G (slow evolving pads)
+        const chords = [
+            [261.63, 329.63, 392.00, 493.88],  // Cmaj7:  C4, E4, G4, B4
+            [220.00, 261.63, 329.63, 392.00],  // Am7:    A3, C4, E4, G4
+            [174.61, 220.00, 261.63, 329.63],  // Fmaj7:  F3, A3, C4, E4
+            [196.00, 246.94, 293.66, 369.99],  // G:      G3, B3, D4, F#4
         ];
 
-        // Bass line - bouncy funk bass (sampled feel from "And the Beat Goes On")
-        const bass = [
-            { note: 'E3',  dur: 0.18, time: 0.0 },
-            { note: 'E3',  dur: 0.12, time: 0.33 },
-            { note: 'G3',  dur: 0.18, time: 0.55 },
-            { note: 'A3',  dur: 0.12, time: 0.88 },
-            { note: 'B3',  dur: 0.18, time: 1.1 },
-            { note: 'A3',  dur: 0.12, time: 1.43 },
-            { note: 'G3',  dur: 0.25, time: 1.65 },
-            // Bar 2
-            { note: 'E3',  dur: 0.18, time: 2.2 },
-            { note: 'E3',  dur: 0.12, time: 2.53 },
-            { note: 'G3',  dur: 0.18, time: 2.75 },
-            { note: 'A3',  dur: 0.12, time: 3.08 },
-            { note: 'B3',  dur: 0.18, time: 3.3 },
-            { note: 'A3',  dur: 0.12, time: 3.63 },
-            { note: 'G3',  dur: 0.25, time: 3.85 },
-            // Bar 3
-            { note: 'E3',  dur: 0.18, time: 4.4 },
-            { note: 'G3',  dur: 0.12, time: 4.62 },
-            { note: 'A3',  dur: 0.18, time: 4.84 },
-            { note: 'B3',  dur: 0.12, time: 5.06 },
-            { note: 'A3',  dur: 0.18, time: 5.28 },
-            { note: 'G3',  dur: 0.12, time: 5.5 },
-            { note: 'E3',  dur: 0.35, time: 5.72 },
-        ];
+        // High shimmer notes that float over the pads
+        const shimmerNotes = [523.25, 659.26, 783.99, 987.77, 1046.50, 783.99, 659.26, 523.25];
 
-        // Funky kick pattern - not straight 4/4, more syncopated
-        const kicks = [0, 0.55, 1.1, 1.65, 2.2, 2.75, 3.3, 3.85, 4.4, 4.95, 5.5, 6.05];
+        const CHORD_DUR = 6; // seconds per chord
+        const LOOP_LENGTH = CHORD_DUR * chords.length; // 24 seconds total
 
-        const LOOP_LENGTH = 6.6; // seconds per loop
+        function createPad(ctx, freq, startTime, duration, volume) {
+            // Main sine tone
+            const osc1 = ctx.createOscillator();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(freq, startTime);
 
-        function createSynth(ctx, freq, startTime, duration, type, volume, attack, release) {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
+            // Detuned triangle for warmth
+            const osc2 = ctx.createOscillator();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(freq * 1.002, startTime); // slight detune
+
+            // Very slow vibrato
+            const lfo = ctx.createOscillator();
+            lfo.type = 'sine';
+            lfo.frequency.setValueAtTime(0.3 + Math.random() * 0.4, startTime);
+            const lfoGain = ctx.createGain();
+            lfoGain.gain.setValueAtTime(1.5, startTime);
+            lfo.connect(lfoGain);
+            lfoGain.connect(osc1.frequency);
+            lfoGain.connect(osc2.frequency);
+
+            // Soft lowpass filter
             const filter = ctx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, startTime);
+            filter.Q.setValueAtTime(0.5, startTime);
 
-            osc.type = type;
+            // Volume envelope - very long fade in/out
+            const gain = ctx.createGain();
+            const fadeTime = duration * 0.4;
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(volume, startTime + fadeTime);
+            gain.gain.setValueAtTime(volume, startTime + duration - fadeTime);
+            gain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+            osc1.connect(filter);
+            osc2.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc1.start(startTime);
+            osc2.start(startTime);
+            lfo.start(startTime);
+            osc1.stop(startTime + duration + 0.1);
+            osc2.stop(startTime + duration + 0.1);
+            lfo.stop(startTime + duration + 0.1);
+
+            musicNodes.push(osc1, osc2, lfo, lfoGain, filter, gain);
+        }
+
+        function createShimmer(ctx, freq, startTime) {
+            const osc = ctx.createOscillator();
+            osc.type = 'sine';
             osc.frequency.setValueAtTime(freq, startTime);
 
+            const filter = ctx.createBiquadFilter();
             filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(type === 'sawtooth' ? 2000 : 4000, startTime);
-            filter.Q.setValueAtTime(2, startTime);
+            filter.frequency.setValueAtTime(2000, startTime);
 
+            const gain = ctx.createGain();
+            const dur = 3 + Math.random() * 2;
             gain.gain.setValueAtTime(0, startTime);
-            gain.gain.linearRampToValueAtTime(volume, startTime + attack);
-            gain.gain.setValueAtTime(volume, startTime + duration - release);
-            gain.gain.linearRampToValueAtTime(0, startTime + duration);
+            gain.gain.linearRampToValueAtTime(0.02, startTime + dur * 0.3);
+            gain.gain.linearRampToValueAtTime(0, startTime + dur);
 
             osc.connect(filter);
             filter.connect(gain);
             gain.connect(ctx.destination);
 
             osc.start(startTime);
-            osc.stop(startTime + duration + 0.05);
+            osc.stop(startTime + dur + 0.1);
 
-            musicNodes.push(osc, gain, filter);
+            musicNodes.push(osc, filter, gain);
         }
 
-        function createKick(ctx, startTime) {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-
-            osc.frequency.setValueAtTime(150, startTime);
-            osc.frequency.exponentialRampToValueAtTime(30, startTime + 0.15);
-
-            gain.gain.setValueAtTime(0.4, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
-
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-
-            osc.start(startTime);
-            osc.stop(startTime + 0.35);
-
-            musicNodes.push(osc, gain);
-        }
-
-        function createHihat(ctx, startTime) {
-            const bufferSize = ctx.sampleRate * 0.05;
-            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = Math.random() * 2 - 1;
-            }
-
-            const noise = ctx.createBufferSource();
-            noise.buffer = buffer;
-
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'highpass';
-            filter.frequency.value = 8000;
-
-            const gain = ctx.createGain();
-            gain.gain.setValueAtTime(0.08, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
-
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(ctx.destination);
-
-            noise.start(startTime);
-            noise.stop(startTime + 0.06);
-
-            musicNodes.push(noise, filter, gain);
-        }
-
-        function scheduleLoop(offset) {
+        function scheduleLoop() {
             if (!audioCtx || !musicPlaying) return;
 
-            const now = audioCtx.currentTime + offset;
+            const now = audioCtx.currentTime + 0.1;
 
-            // Melody - bright saw synth
-            melody.forEach(n => {
-                const freq = NOTE[n.note] || NOTE['C4'];
-                createSynth(audioCtx, freq, now + n.time, n.dur, 'sawtooth', 0.12, 0.02, 0.05);
+            // Schedule pad chords
+            chords.forEach((chord, i) => {
+                const chordStart = now + (i * CHORD_DUR);
+                // Overlap chords slightly for smooth transitions
+                const chordDuration = CHORD_DUR + 2;
+                chord.forEach(freq => {
+                    createPad(audioCtx, freq, chordStart, chordDuration, 0.04);
+                    // Sub octave for depth
+                    createPad(audioCtx, freq / 2, chordStart, chordDuration, 0.02);
+                });
             });
 
-            // Bass - sub square
-            bass.forEach(n => {
-                const freq = (NOTE[n.note] || NOTE['C3']) / 2;
-                createSynth(audioCtx, freq, now + n.time, n.dur, 'square', 0.15, 0.01, 0.05);
+            // Scatter shimmer notes throughout
+            shimmerNotes.forEach((freq, i) => {
+                const t = now + (i * 3) + Math.random() * 1.5;
+                createShimmer(audioCtx, freq, t);
             });
 
-            // Kick drum
-            kicks.forEach(t => {
-                createKick(audioCtx, now + t);
-            });
-
-            // Hi-hats on offbeats
-            kicks.forEach(t => {
-                createHihat(audioCtx, now + t + 0.3);
-            });
+            // Schedule next loop
+            loopTimeout = setTimeout(() => {
+                if (musicPlaying) scheduleLoop();
+            }, (LOOP_LENGTH - 2) * 1000); // overlap by 2s for seamless loop
         }
 
         function startMusic() {
@@ -529,32 +473,23 @@
 
             musicPlaying = true;
             musicIcon.textContent = '🔊';
-            musicText.textContent = 'NOW PLAYING: WELCOME TO MIAMI';
+            musicText.textContent = 'NOW PLAYING: SPA MODE';
             musicToggle.classList.add('playing');
 
-            // Schedule first loop immediately
-            scheduleLoop(0.05);
-
-            // Schedule subsequent loops
-            loopInterval = setInterval(() => {
-                if (musicPlaying) {
-                    scheduleLoop(0.05);
-                }
-            }, LOOP_LENGTH * 1000);
+            scheduleLoop();
         }
 
         function stopMusic() {
             musicPlaying = false;
             musicIcon.textContent = '🔇';
-            musicText.textContent = 'PLAY WELCOME TO MIAMI';
+            musicText.textContent = 'PLAY SPA VIBES';
             musicToggle.classList.remove('playing');
 
-            if (loopInterval) {
-                clearInterval(loopInterval);
-                loopInterval = null;
+            if (loopTimeout) {
+                clearTimeout(loopTimeout);
+                loopTimeout = null;
             }
 
-            // Disconnect all nodes
             musicNodes.forEach(node => {
                 try { node.disconnect(); } catch(e) {}
             });
