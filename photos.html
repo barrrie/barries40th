@@ -31,7 +31,7 @@
                 <div class="music-bar">
                     <button class="music-play-btn" id="music-toggle">
                         <span class="music-btn-icon" id="music-icon">🔊</span>
-                        <span class="music-btn-text" id="music-text">PLAY SPA VIBES</span>
+                        <span class="music-btn-text" id="music-text">PLAY BACKGROUND MUSIC</span>
                     </button>
                 </div>
             </div>
@@ -473,7 +473,7 @@
 
             musicPlaying = true;
             musicIcon.textContent = '🔊';
-            musicText.textContent = 'NOW PLAYING: SPA MODE';
+            musicText.textContent = 'NOW PLAYING: BACKGROUND MUSIC';
             musicToggle.classList.add('playing');
 
             scheduleLoop();
@@ -482,7 +482,7 @@
         function stopMusic() {
             musicPlaying = false;
             musicIcon.textContent = '🔇';
-            musicText.textContent = 'PLAY SPA VIBES';
+            musicText.textContent = 'PLAY BACKGROUND MUSIC';
             musicToggle.classList.remove('playing');
 
             if (loopTimeout) {
