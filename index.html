@@ -27,7 +27,7 @@
     <div id="login-screen">
         <div class="login-container">
             <img src="images/hero.png" alt="Uncle B's Big Bash" class="login-hero">
-            <p>Please enter the password to continue</p>
+            <p>pw = enter</p>
             <form id="password-form">
                 <input type="password" id="password-input" placeholder="Enter password" required>
                 <button type="submit">Enter</button>
@@ -287,7 +287,7 @@
                                 <div class="event-time">Morning</div>
                                 <div class="event-details">
                                     <h4>Everglades Tour</h4>
-                                    <p class="event-description">This will probably be from 10-3pm but we're still locking in details— join <a href="https://chat.whatsapp.com/LJ2UjUU6CimAuizYrznaUH?mode=gi_t" target="_blank">the WhatsApp chat for the Everglades</a> if you want in and let us know there ASAP!</p>
+                                    <p class="event-description">This will probably be from 10-3pm but we're still locking in details— join <a href="#" onclick="return false;">the WhatsApp chat for the Everglades</a> if you want in and let us know there ASAP!</p>
                                     <span class="event-tag">RSVP Required</span>
                                 </div>
                             </div>
@@ -535,8 +535,8 @@
                 </section>
                 <section id="contact" class="content-section">
                     <h2>Talk to a Person</h2>
-                    <a href="https://chat.whatsapp.com/CaFstzT8cGY7k3FijYiqti" class="contact-qr-container contact-qr-link" id="contact-qr-link">
-                        <img src="images/whatsapp-qr.png" alt="WhatsApp QR Code" class="contact-qr">
+                    <a href="#" onclick="return false;" class="contact-qr-container contact-qr-link" id="contact-qr-link">
+                        <img src="images/whatsapp-qr-disabled.png" alt="WhatsApp QR Code" class="contact-qr">
                         <p class="contact-qr-caption">Scan to join the WhatsApp group</p>
                     </a>
                 </section>
@@ -647,7 +647,7 @@
         <div class="whatsapp-modal-content">
             <button class="whatsapp-modal-close" id="whatsapp-modal-close">&times;</button>
             <h3>Join the WhatsApp Group!</h3>
-            <img src="images/whatsapp-qr.png" alt="WhatsApp QR Code" class="whatsapp-qr">
+            <img src="images/whatsapp-qr-disabled.png" alt="WhatsApp QR Code" class="whatsapp-qr">
             <p>Scan with your phone to join</p>
         </div>
     </div>
@@ -781,7 +781,7 @@
         const whatsappBannerBtn = document.getElementById('whatsapp-banner-btn');
         const whatsappModal = document.getElementById('whatsapp-modal');
         const whatsappModalClose = document.getElementById('whatsapp-modal-close');
-        const whatsappDirectLink = 'https://chat.whatsapp.com/CaFstzT8cGY7k3FijYiqti';
+        const whatsappDirectLink = '#';
 
         // Detect mobile device
         function isMobile() {
@@ -789,11 +789,8 @@
         }
 
         function handleWhatsAppClick() {
-            if (isMobile()) {
-                window.location.href = whatsappDirectLink;
-            } else {
-                whatsappModal.classList.add('active');
-            }
+            // Links disabled - WhatsApp groups no longer active
+            whatsappModal.classList.add('active');
         }
 
         whatsappBtn.addEventListener('click', handleWhatsAppClick);

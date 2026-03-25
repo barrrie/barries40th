@@ -25,7 +25,7 @@
             <div class="gallery-header">
                 <a href="index.html" class="gallery-back">&larr; Back to Main</a>
                 <h1 class="gallery-title">PARTY PICS!</h1>
-                <p class="gallery-photo-dump">got some pics from the weekend burning a hole in your camera roll? throw them into the photo dump group on whatsapp <a href="https://chat.whatsapp.com/D50MjApvE7y14kzEoAcb15?mode=gi_t" target="_blank">here</a></p>
+                <p class="gallery-photo-dump">got some pics from the weekend burning a hole in your camera roll? throw them into the photo dump group on whatsapp <a href="#" onclick="return false;">here</a></p>
                 <p class="gallery-subtitle">ty to our photographer Sasha for capturing the moment and making us look hot <a href="https://instagram.com/bigbadboiwoofwoof" target="_blank" class="gallery-ig-link">@bigbadboiwoofwoof</a></p>
 
                 <div class="music-bar">
@@ -273,7 +273,48 @@
     </div>
 
 
-    <script src="script.js"></script>
+    <script>
+        // Gallery-specific password protection (separate from main site)
+        const SITE_PASSWORD = 'bigbash';
+
+        const loginScreen = document.getElementById('login-screen');
+        const content = document.getElementById('content');
+        const passwordForm = document.getElementById('password-form');
+        const passwordInput = document.getElementById('password-input');
+        const errorMessage = document.getElementById('error-message');
+
+        function checkAuth() {
+            const isAuthenticated = sessionStorage.getItem('gallery_authenticated');
+            if (isAuthenticated === 'true') {
+                showContent();
+            }
+        }
+
+        function showContent() {
+            loginScreen.classList.add('hidden');
+            content.classList.remove('hidden');
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            passwordInput.classList.add('shake');
+            setTimeout(() => passwordInput.classList.remove('shake'), 500);
+        }
+
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredPassword = passwordInput.value;
+            if (enteredPassword === SITE_PASSWORD) {
+                sessionStorage.setItem('gallery_authenticated', 'true');
+                showContent();
+            } else {
+                showError('Incorrect password. Please try again.');
+                passwordInput.value = '';
+            }
+        });
+
+        checkAuth();
+    </script>
     <script>
         // Gallery lightbox
         const lightbox = document.getElementById('gallery-lightbox');
